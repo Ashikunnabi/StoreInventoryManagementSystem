@@ -1,0 +1,27 @@
+*{ margin: 0; padding: 0;}
+.header{
+    width: 100%;
+    height: 95px;
+    text-align: center;
+}
+.header img{
+    width: 700px;
+    height: 80px;
+}
+.report{
+    margin: 10px 0px;
+    text-align: center;
+}
+.tableEdit{
+    margin: 25px auto;
+}
+table{
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 20px;
+    text-align: center;
+}
+table th,td{
+    border: 1px solid black;
+    padding: 8px;
+}

@@ -1,0 +1,35 @@
+.container{
+    height: 500px;
+}
+
+.logout_report{
+    float: right;
+    margin-top: 25px;
+    padding: 5px;
+}
+.logout_report button{
+    height: 30px;
+    width: 105px;
+    padding: 0;
+    color: #2303EF;
+    background-color: white;
+    border: 1px solid #2303EF;
+    border-radius: 22px;    
+}
+.formDesign{
+    padding-top: 150px;
+    text-align: center;
+}
+.submitDesign{
+    text-align: center;
+}
+.submitButton{
+    height: 40px;
+    width: 155px;
+    padding: 0;
+    color: white;
+    background-color: #2303EF;
+    border-radius: 22px;
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3); 
+    
+}

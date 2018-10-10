@@ -1,0 +1,38 @@
+{% extends "StaffWorkspace/base.html" %}
+{% load static %}
+
+{% block extraCSS %}
+    <link rel="stylesheet" href="{% static 'StaffWorkspace/css/inputForm.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="logout_report">
+            <button type="button" class="btn btn-default">Logout</button>
+        </div>
+        <div class="logout_report">
+            <a href="{% url 'worker_report' %}"><button type="button" class="btn btn-default">Report</button></a>
+        </div>
+        
+        <div class="formDesign">
+            <form class="form" action="">
+                <div class="form-group row">
+                    <span class="col-md-4">Email address:</span>
+                    <input type="email" class="form-control col-md-8" id="email">
+                </div>
+                <div class="form-group row">
+                    <span class="col-md-4">Email address:</span>
+                    <input type="email" class="form-control col-md-8" id="email">
+                </div>
+                <div class="form-group row">
+                    <span class="col-md-4">Email address:</span>
+                    <input type="email" class="form-control col-md-8" id="email">
+                </div>
+                <br/>
+                <div class="submitDesign">
+                    <button type="submit" class="btn btn-default submitButton">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div> 
+{% endblock %}

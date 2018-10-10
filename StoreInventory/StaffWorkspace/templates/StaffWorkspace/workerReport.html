@@ -1,0 +1,219 @@
+{% extends "StaffWorkspace/base.html" %}
+{% load static %}
+
+{% block extraCSS %}
+    <link rel="stylesheet" href="{% static 'StaffWorkspace/css/workerReport.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="logout_report">
+        <button type="button" class="btn btn-default">Logout</button>
+    </div>
+    <h3 class="report">Report of {{ date }}</h3>
+
+    <div class="container-fluid">    
+        <table class="tableEdit">
+            <tr>
+                <th>Sl No.</th>
+                <th><input type="date" name="date"></th>
+                <th><input type="text" placeholder="Item No." size="6" name="itemNo"></th>
+                <th><input type="text" placeholder="Item Name" size="10" name="itemName"></th>
+                <th><input type="text" placeholder="Vendor" size="10" name="vendor"></th>
+                <th>Stock Location</th>
+                <th>Cost/Unit</th>
+                <th>Previous Balance</th>
+                <th>Purchase</th>
+                <th>Issued</th>
+                <th>Ending Balance</th>
+                <th>Issued To</th>
+                <th>Comments</th>
+            </tr>
+            <tr>
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>50</td>
+            </tr><tr>
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>50</td>
+            </tr><tr>
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>50</td>
+            </tr><tr>
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>50</td>
+            </tr><tr>
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>50</td>
+            </tr><tr>
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>50</td>
+            </tr><tr>
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>50</td>
+            </tr><tr>
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>50</td>
+            </tr><tr>
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>50</td>
+            </tr><tr>
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>50</td>
+            </tr><tr>
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>50</td>
+            </tr><tr>
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>50</td>
+            </tr><tr>
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Smith</td> 
+                <td>Jill</td>
+                <td>Smith</td> 
+                <td>50</td>
+            </tr>
+        </table>
+		<div class="printButton">
+			<a href="{% url 'worker_report_print' %}" target="_blank"> <button>Print</button> </a>
+		</div>
+    </div>
+{% endblock %}

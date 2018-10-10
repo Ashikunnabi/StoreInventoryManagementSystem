@@ -1,0 +1,64 @@
+.logout_report{
+    float: right;
+    margin-top: 25px;
+    padding: 5px;
+}
+.logout_report button{
+    height: 30px;
+    width: 105px;
+    padding: 0;
+    color: #2303EF;
+    background-color: white;
+    border: 1px solid #2303EF;
+    border-radius: 22px;    
+}
+.report{
+    margin: 30px 0px;
+    text-align: center;
+}
+.tableEdit{
+    margin: 25px auto;
+}
+table{
+    font-size: 13px;
+    margin: 20px;
+    text-align: center;
+    border-collapse: collapse;
+}
+table th,td{
+    border: 1px solid black;
+    padding: 8px;
+}
+table th{
+    background-color: #2303EF;
+    color: white;
+}
+tr:nth-child(odd){
+    background-color: #8B8BF2;
+}
+tr:hover {
+    background-color: #6ae2d7;
+    font-weight: bold;
+}
+table th input {
+    background-color: #2303EF;
+    border: 1px solid #5252e8;
+    color: white;
+    text-align: center;
+}
+input::placeholder{
+    color: white;
+}
+.printButton{
+	text-align: center;
+}
+.printButton button{    
+	height: 30px;
+    width: 105px;
+    padding: 0;
+    margin-bottom: 20px;
+    color: #2303EF;
+    background-color: white;
+    border: 1px solid #2303EF;
+    border-radius: 22px; 
+}

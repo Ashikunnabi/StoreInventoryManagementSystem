@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Mas Trade International LTD.</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'StaffWorkspace/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'StaffWorkspace/css/base.css' %}">
+  <script src="{% static 'StaffWorkspace/js/bootstrap.min.js' %}"></script>
+  {% block extraCSS %}{% endblock %}
+</head>
+<body>
+    <div class="header">
+        <image src="{% static 'StaffWorkspace/img/logo.png' %}" alt="Mas Trade International LTD. Logo">        
+    </div>
+    
+    {% block content %}
+    {% endblock %}
+    
+    
+    <div class="footer">
+        <p>Developed By: Quard Core, IUBAT University</p>  
+    </div>
+</body>
+</html>

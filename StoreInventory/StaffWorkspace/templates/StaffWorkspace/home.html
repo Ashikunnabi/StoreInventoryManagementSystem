@@ -1,0 +1,40 @@
+{% extends "StaffWorkspace/base.html" %}
+{% load static %}
+
+{% block extraCSS %}
+    <link rel="stylesheet" href="{% static 'StaffWorkspace/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="logout">
+            <button type="button" class="btn btn-default">Logout</button>
+        </div>
+        <div class="contents">
+            <a href="{% url 'input_form' %}">
+                <div class="option" style="border: 5px solid #03818E;">
+                    <div class="optionImage" style="background-color: #03818E;">
+                        <img src="{% static 'StaffWorkspace/img/machine.png' %}" alt="Machine">
+                    </div>
+                    <p class="optionText">MACHINE</p>
+                </div>
+            </a>
+            <a href="">
+                <div class="option" style="border: 5px solid #1E1E1E;">
+                    <div class="optionImage" style="background-color: #1E1E1E;">
+                        <img src="{% static 'StaffWorkspace/img/stationary.png' %}" alt="Stationary">
+                    </div>
+                    <p class="optionText">STATIONARY</p>
+                </div>
+            </a>
+            <a href="">
+                <div class="option" style="border: 5px solid #033775;">
+                    <div class="optionImage" style="background-color: #033775;">
+                        <img src="{% static 'StaffWorkspace/img/others.png' %}" alt="Others">
+                    </div>
+                    <p class="optionText">OTHERS</p>
+                </div>
+            </a>
+        </div> 
+    </div>
+{% endblock %}
