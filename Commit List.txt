@@ -1,3 +1,6 @@
 001: 
 	Normal templates are linked with django server.
 	Home, Worker input, Worker report view, Worker report print done.
+002: 	
+	Worker Model added
+ 	Worker Input dynamic form added

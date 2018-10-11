@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.shortcuts import render
+from .forms import WorkerInputForm
 
 def home(request):
     """        General view for all user.    """
@@ -7,7 +8,10 @@ def home(request):
     
 def input_form(request):
     """        Worker can input store related information.    """
-    return render(request, 'StaffWorkspace/inputForm.html')
+    context={
+        "form": WorkerInputForm
+    }
+    return render(request, 'StaffWorkspace/inputForm.html', context)
     
 def worker_report(request):
     """        Report generation for worker.    """
