@@ -6,4 +6,9 @@
  	Worker Input dynamic form added
 003:
 	Worker report search added with view 
-	AdminWorkspace created
+	AdminWorkspace created.
+004: 
+	In AdminWorkspace 4 table created
+		- Catagory, Item, Stock Location, Vendor
+	Dynamic dropdown box made for Machine -Item name
+		- Only Machine related item will show inside Machine button

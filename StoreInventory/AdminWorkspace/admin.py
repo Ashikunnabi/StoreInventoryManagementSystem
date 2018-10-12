@@ -1,3 +1,11 @@
 from django.contrib import admin
+from .models import Catagory, Item, Vendor, StockLocation, ItemAdmin
 
-# Register your models here.
+
+admin.site.site_header = 'Mas Trade International Garments Ltd.'
+        
+           
+admin.site.register(Catagory)
+admin.site.register(Item, ItemAdmin)
+admin.site.register(Vendor)
+admin.site.register(StockLocation)
