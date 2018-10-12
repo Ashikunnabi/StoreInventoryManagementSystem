@@ -15,10 +15,14 @@
         <table class="tableEdit">
             <tr>
                 <th>Sl No.</th>
-                <th><input type="date" name="date"></th>
-                <th><input type="text" placeholder="Item No." size="6" name="itemNo"></th>
-                <th><input type="text" placeholder="Item Name" size="10" name="itemName"></th>
-                <th><input type="text" placeholder="Vendor" size="10" name="vendor"></th>
+                <form action="{% url 'worker_report_search' 'date' 'itemNo' 'itemName' 'vendor' %}" method="POST" novalidate>
+                {% csrf_token %}
+                    <th><input type="date" value="2000-05-05" name="date"></th>                
+                    <th><input type="text" placeholder="Item No." size="6" name="itemNo"></th>
+                    <th><input type="text" placeholder="Item Name" size="10" name="itemName"></th>
+                    <th><input type="text" placeholder="Vendor" size="10" name="vendor"></th>
+                    <input type="submit"style=" display: none">
+                </form>
                 <th>Stock Location</th>
                 <th>Cost/Unit</th>
                 <th>Previous Balance</th>
@@ -201,9 +205,9 @@
                 <td>50</td>
             </tr>
         </table>
-        <butto type="submit">Submit</butto>
 		<div class="printButton">
 			<a href="{% url 'worker_report_print' %}" target="_blank"> <button>Print</button> </a>
 		</div>
-    </div>
+    </div>   
+
 {% endblock %}

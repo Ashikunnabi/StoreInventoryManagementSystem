@@ -26,6 +26,21 @@ def worker_report(request):
     }
     return render(request, 'StaffWorkspace/workerReport.html', context)
 
+def worker_report(request, date=None, itemNo=None, itemName=None, vendor=None):
+    """        Report generation for worker.    """
+    value1 = request.POST.get('itemNo')  
+    value2 = request.POST.get('itemName')  
+    value3 = request.POST.get('vendor')  
+    value4 = request.POST.get('date')  
+    print(value1)
+    print(value2)
+    print(value3)
+    print(value4)
+    context = {
+        "date": datetime.now(),
+    }
+    return render(request, 'StaffWorkspace/workerReport.html', context)
+
 
 def worker_report_print(request):
     """        Report print for worker.    """
