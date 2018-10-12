@@ -19,7 +19,7 @@ from .views import home, input_form, worker_report, worker_report_print
 
 urlpatterns = [
     path('', home, name='home'),
-    path('input_form', input_form, name='input_form'),
+    path('input_form/<catagory>', input_form, name='input_form'),
     path('worker_report', worker_report, name='worker_report'),
     path('worker_report/<date>/<itemNo>/<itemName>/<vendor>', worker_report, name='worker_report_search'),
     path('worker_report_print', worker_report_print, name='worker_report_print'),

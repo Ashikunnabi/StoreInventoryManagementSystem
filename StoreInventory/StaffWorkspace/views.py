@@ -2,16 +2,25 @@ from datetime import datetime
 from django.shortcuts import render
 from .forms import WorkerInputForm
 
+from AdminWorkspace.models import Catagory, Item
+
 
 def home(request):
     """        General view for all user.    """
     return render(request, 'StaffWorkspace/home.html')
 
 
-def input_form(request):
-    """        Worker can input store related information.    """
+def input_form(request, catagory):
+    """        Worker can input store related information.    """ 
+
+    # As catagory is foreign key it will just store it's pk to Item table that's 
+    #why we need to search both Catagory and Item table to get proper dynamic filtering.
+    catagory = Catagory.objects.get(name=catagory)          # Collecting the name of catagory
+    items = Item.objects.filter(catagory=catagory.id)       # Filtering item name from items using catagory.id
+
     context = {
-        "form": WorkerInputForm
+        "form": WorkerInputForm,
+        "items": items,
     }
     return render(request, 'StaffWorkspace/inputForm.html', context)
 
