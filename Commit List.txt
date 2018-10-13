@@ -15,3 +15,8 @@
 	Dynamic dropdown box made for Vendor and Stock location
 	Admin page customized
 		- site_title, index_title, site_header
+005:
+	Update Machin input form - inputForm.html
+	Update StaffWorkspace - form.py
+	In AdminWorkspace
+		-Added one attribute in Item - balance

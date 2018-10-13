@@ -19,10 +19,6 @@
             {% csrf_token %}
                 <div class="form-group row">
                     <span class="col-md-4">Item Name:</span>
-                    {{ form.item_name }}
-                </div>
-                <div class="form-group row">
-                    <span class="col-md-4">Item Name:</span>
                     <select class="form-control col-md-8">
                         {% for item in items %}
                             <option value={{ item.name }}>{{ item.name }}</option>
@@ -46,12 +42,32 @@
                     </select>
                 </div>
                 <div class="form-group row">
-                    <span class="col-md-4">Email address:</span>
-                    {{ form.email }}
+                    <span class="col-md-4">Cost\Unit:</span>
+                    {{ form.cost_per_unit }}
                 </div>
                 <div class="form-group row">
-                    <span class="col-md-4">Email address:</span>
-                    <input type="email" class="form-control col-md-8" id="email">
+                    <span class="col-md-4">Previous Balance:</span>
+                    {{ form.previous_balance }}
+                </div>   
+                <div class="form-group row">
+                    <span class="col-md-4">Purchase:</span>
+                    {{ form.purchase }}
+                </div>  
+                <div class="form-group row">
+                    <span class="col-md-4">Issued:</span>
+                    {{ form.issued }}
+                </div>              
+                <div class="form-group row">
+                    <span class="col-md-4">Ending Balance:</span>
+                    {{ form.ending_balance }}
+                </div>                
+                <div class="form-group row">
+                    <span class="col-md-4">Issued to:</span>
+                    {{ form.issued_to }}
+                </div>
+                <div class="form-group row">
+                    <span class="col-md-4">Comments:</span>
+                    {{ form.comments }}
                 </div>
                 <br/>
                 <div class="submitDesign">

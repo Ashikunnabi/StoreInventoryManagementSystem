@@ -12,6 +12,7 @@ class Catagory(models.Model):
 class Item(models.Model):
     item_no = models.IntegerField()
     name = models.CharField(max_length=20)
+    balance = models.IntegerField(max_length=20)
     catagory = models.ForeignKey('Catagory', on_delete=models.CASCADE) # If Catagory is no more then related item will also auto deleted
                                                                        # as because on_delete=models.CASCADE
     
