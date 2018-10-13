@@ -31,11 +31,25 @@
                 <th>Ending Balance</th>
                 <th>Issued To</th>
                 <th>Comments</th>
-            </tr><tr>
-            {% for item in stock_items %}
-                <td>{{ item }}</td>
+            </tr>
+            {% for item in report %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ item.date }}</td> 
+                <td>{{ item.item_no }}</td>
+                <td>{{ item.item_name }}</td> 
+                <td>{{ item.vendor }}</td>
+                <td>{{ item.stock_location }}</td> 
+                <td>{{ item.cost_per_unit }}</td>
+                <td>{{ item.previous_balance }}</td> 
+                <td>{{ item.purchase }}</td> 
+                <td>{{ item.issued }}</td> 
+                <td>{{ item.ending_balance }}</td>
+                <td>{{ item.issued_to }}</td> 
+                <td>{{ item.comments }}</td>
+            </tr>
             {% endfor %}
-            </tr><tr>
+            <tr>
                 <td>Jill</td>
                 <td>Smith</td> 
                 <td>Jill</td>

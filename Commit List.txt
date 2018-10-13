@@ -20,3 +20,7 @@
 	Update StaffWorkspace - form.py
 	In AdminWorkspace
 		-Added one attribute in Item - balance
+006:
+	Worker can fully input from input page
+	Report table made for report
+	Successfully report is showing to all admin and worker

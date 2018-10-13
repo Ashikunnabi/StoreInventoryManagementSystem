@@ -15,39 +15,42 @@
         </div>
         
         <div class="formDesign">
-            <form class="form" action="" method="post">
+            <form class="form" action="{% url 'input_form_submit'%}" method="post">
             {% csrf_token %}
                 <div class="form-group row">
                     <span class="col-md-4">Item Name:</span>
-                    <select class="form-control col-md-8">
+                    <select class="form-control col-md-8" onchange="itemChange()" id="item" name ="item_name">
+                        <option selected disabled hidden>Select</option>
                         {% for item in items %}
-                            <option value={{ item.name }}>{{ item.name }}</option>
+                            <option value="{{ item.name }}">{{ item.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="form-group row">
                     <span class="col-md-4">Vendor:</span>
-                    <select class="form-control col-md-8">
+                    <select class="form-control col-md-8" name ="vendor_name">
+                        <option selected disabled hidden>Select</option>
                         {% for vendor in vendors %}
-                            <option value={{ vendor.name }}>{{ vendor.name }}</option>
+                            <option value="{{ vendor.name }}">{{ vendor.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="form-group row">
                     <span class="col-md-4">Stock Location:</span>
-                    <select class="form-control col-md-8">
+                    <select class="form-control col-md-8" name ="stock_location">
+                        <option selected disabled hidden>Select</option>
                         {% for location in stock_locations %}
-                            <option value={{ location.name }}>{{ location.name }} - {{ location.address }}</option>
+                            <option value="{{ location.name }}">{{ location.name }} - {{ location.address }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="form-group row">
-                    <span class="col-md-4">Cost\Unit:</span>
+                    <span class="col-md-4">Cost / Unit:</span>
                     {{ form.cost_per_unit }}
                 </div>
                 <div class="form-group row">
                     <span class="col-md-4">Previous Balance:</span>
-                    {{ form.previous_balance }}
+                    <input type="text" class="form-control col-md-8" id="previous_balance" name ="previous_balance" readonly>
                 </div>   
                 <div class="form-group row">
                     <span class="col-md-4">Purchase:</span>
@@ -76,4 +79,16 @@
             </form>
         </div>
     </div> 
+    
+    <script>
+        function itemChange(){
+            // Changing the value of previous_balance depending on item choice
+            {% for item in items %}
+                if (document.getElementById("item").value == "{{ item.name }}"){
+                    document.getElementById("previous_balance").value = "{{ item.balance }}";
+                    console.log("{{ item.balance }}"); // Testing on browser
+                }
+            {% endfor %}
+        }
+    </script>
 {% endblock %}
