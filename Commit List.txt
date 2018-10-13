@@ -12,3 +12,6 @@
 		- Catagory, Item, Stock Location, Vendor
 	Dynamic dropdown box made for Machine -Item name
 		- Only Machine related item will show inside Machine button
+	Dynamic dropdown box made for Vendor and Stock location
+	Admin page customized
+		- site_title, index_title, site_header

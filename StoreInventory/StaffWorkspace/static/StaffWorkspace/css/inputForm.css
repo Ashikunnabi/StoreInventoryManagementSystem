@@ -1,5 +1,6 @@
 .container{
-    height: 500px;
+    height: 100%;
+    padding-bottom: 40px;
 }
 
 .logout_report{

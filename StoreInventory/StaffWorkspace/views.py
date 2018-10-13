@@ -2,7 +2,7 @@ from datetime import datetime
 from django.shortcuts import render
 from .forms import WorkerInputForm
 
-from AdminWorkspace.models import Catagory, Item
+from AdminWorkspace.models import Catagory, Item, StockLocation, Vendor
 
 
 def home(request):
@@ -17,23 +17,17 @@ def input_form(request, catagory):
     #why we need to search both Catagory and Item table to get proper dynamic filtering.
     catagory = Catagory.objects.get(name=catagory)          # Collecting the name of catagory
     items = Item.objects.filter(catagory=catagory.id)       # Filtering item name from items using catagory.id
+    vendors = Vendor.objects.all()
+    stock_locations = StockLocation.objects.all()
 
     context = {
         "form": WorkerInputForm,
         "items": items,
+        "vendors": vendors,
+        "stock_locations": stock_locations,
     }
     return render(request, 'StaffWorkspace/inputForm.html', context)
 
-
-def worker_report(request):
-    """        Report generation for worker.    """
-    stock_item = [1, "10/10/2018", 121, "Book", "IUBAT", "Uttara", 20, 2000, 10, "05/10/2018", 5000,
-             "MasTrade", "Very good"]
-    context = {
-        "date": datetime.now(),
-        "stock_items": stock_item
-    }
-    return render(request, 'StaffWorkspace/workerReport.html', context)
 
 def worker_report(request, date=None, itemNo=None, itemName=None, vendor=None):
     """        Report generation for worker.    """
@@ -45,8 +39,12 @@ def worker_report(request, date=None, itemNo=None, itemName=None, vendor=None):
     print(value2)
     print(value3)
     print(value4)
+    
+    stock_item = [1, "10/10/2018", 121, "Book", "IUBAT", "Uttara", 20, 2000, 10, "05/10/2018", 5000,
+             "MasTrade", "Very good"]
     context = {
         "date": datetime.now(),
+        "stock_items": stock_item
     }
     return render(request, 'StaffWorkspace/workerReport.html', context)
 

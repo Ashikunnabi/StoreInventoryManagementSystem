@@ -15,7 +15,8 @@
         </div>
         
         <div class="formDesign">
-            <form class="form" action="">
+            <form class="form" action="" method="post">
+            {% csrf_token %}
                 <div class="form-group row">
                     <span class="col-md-4">Item Name:</span>
                     {{ form.item_name }}
@@ -25,6 +26,22 @@
                     <select class="form-control col-md-8">
                         {% for item in items %}
                             <option value={{ item.name }}>{{ item.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <span class="col-md-4">Vendor:</span>
+                    <select class="form-control col-md-8">
+                        {% for vendor in vendors %}
+                            <option value={{ vendor.name }}>{{ vendor.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <span class="col-md-4">Stock Location:</span>
+                    <select class="form-control col-md-8">
+                        {% for location in stock_locations %}
+                            <option value={{ location.name }}>{{ location.name }} - {{ location.address }}</option>
                         {% endfor %}
                     </select>
                 </div>
