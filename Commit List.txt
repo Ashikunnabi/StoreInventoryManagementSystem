@@ -24,3 +24,8 @@
 	Worker can fully input from input page
 	Report table made for report
 	Successfully report is showing to all admin and worker
+007:
+	Calculation for input filed so that auto ending_balance
+        can show depending on issued item and purchase item.
+	Worker report table color changed.
+	Auto previous balance update

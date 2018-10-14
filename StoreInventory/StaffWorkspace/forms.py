@@ -4,7 +4,7 @@ from django import forms
 class WorkerInputForm(forms.Form):
 
     cost_per_unit = forms.FloatField(
-        required=False,
+        required=False,initial=0,
         widget=forms.NumberInput(
             attrs={'class': 'form-control col-md-8'}
         )
@@ -15,21 +15,21 @@ class WorkerInputForm(forms.Form):
         )
     )
     purchase = forms.FloatField(
-        required=False,
+        required=False,initial=0,
         widget=forms.NumberInput(
-            attrs={'class': 'form-control col-md-8'}
+            attrs={'class': 'form-control col-md-8', 'onkeyup': 'purchaseItem()'}
         )
     )
     issued = forms.IntegerField(
-        required=False,
+        required=False,initial=0,
         widget=forms.NumberInput(
-            attrs={'class': 'form-control col-md-8'}
+            attrs={'class': 'form-control col-md-8', 'onkeyup': 'issuedItem()'}
         )
     ) 
     ending_balance = forms.FloatField(
-        required=False,
+        required=False,initial=0,
         widget=forms.NumberInput(
-            attrs={'class': 'form-control col-md-8'}
+            attrs={'class': 'form-control col-md-8', 'readonly':'readonly'}
         )
     )   
     issued_to = forms.CharField(

@@ -34,7 +34,7 @@ table th{
     color: white;
 }
 tr:nth-child(odd){
-    background-color: #8B8BF2;
+    background-color: #bfbfd4;
 }
 tr:hover {
     background-color: #6ae2d7;

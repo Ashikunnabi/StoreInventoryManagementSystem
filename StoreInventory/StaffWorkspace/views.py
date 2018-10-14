@@ -44,8 +44,8 @@ def input_form_submit(request):
         ending_balance = request.POST.get("ending_balance")     
         issued_to = request.POST.get("issued_to")     
         comments = request.POST.get("comments")     
-        added_by = request.POST.get("item_name")           
-        #print(item_name, item_no, vendor, stock_location, cost_per_unit, previous_balance, issued, issued_to, ending_balance, comments)
+        added_by = request.user.username          
+        # print(item_name, item_no, vendor, stock_location, cost_per_unit, previous_balance, issued, issued_to, ending_balance, comments)
         
         # Collecting the information of a full row/object from diffrent model/table.
         item_detail = Item.objects.get(name=item_name)
@@ -66,6 +66,9 @@ def input_form_submit(request):
                     comments = comments,
                     added_by = added_by)
         report_save.save()
+        
+        # Previous balance update depending on ending_balance
+        Item.objects.filter(name=item_name).update(balance=ending_balance)     
         
     return redirect('worker_report')
     

@@ -90,5 +90,19 @@
                 }
             {% endfor %}
         }
+        
+        // Calculation for input filed so that auto ending_balance can show depending on issued item and purchase item.
+        function issuedItem(){
+            if (parseInt(document.getElementById("id_issued").value) <= parseInt(document.getElementById("previous_balance").value)){
+                    var ending_balance = parseInt(document.getElementById("previous_balance").value) - parseInt(document.getElementById("id_issued").value);
+                    document.getElementById("id_ending_balance").value = ending_balance;
+                    console.log(ending_balance);
+            }
+        }
+        function purchaseItem(){
+            var ending_balance = parseInt(document.getElementById("previous_balance").value) + parseInt(document.getElementById("id_purchase").value);
+            document.getElementById("id_ending_balance").value = ending_balance;
+            console.log(ending_balance);
+        }
     </script>
 {% endblock %}
