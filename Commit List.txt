@@ -29,3 +29,5 @@
         can show depending on issued item and purchase item.
 	Worker report table color changed.
 	Auto previous balance update
+008:
+	Input filed validation updated.

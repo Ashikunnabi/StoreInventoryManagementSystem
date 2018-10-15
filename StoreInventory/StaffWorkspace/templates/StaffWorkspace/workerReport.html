@@ -17,7 +17,7 @@
                 <th>Sl No.</th>
                 <form action="{% url 'worker_report_search' 'date' 'itemNo' 'itemName' 'vendor' %}" method="POST" novalidate>
                 {% csrf_token %}
-                    <th><input type="date" value="2000-05-05" name="date"></th>                
+                    <th><input type="date" name="date"></th>                
                     <th><input type="text" placeholder="Item No." size="6" name="itemNo"></th>
                     <th><input type="text" placeholder="Item Name" size="10" name="itemName"></th>
                     <th><input type="text" placeholder="Vendor" size="10" name="vendor"></th>

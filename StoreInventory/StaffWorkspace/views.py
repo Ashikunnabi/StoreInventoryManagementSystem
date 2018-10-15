@@ -1,9 +1,9 @@
 from datetime import datetime
 from django.shortcuts import render, redirect
 from .forms import WorkerInputForm
+from .models import Report
 
 from AdminWorkspace.models import Catagory, Item, StockLocation, Vendor
-from .models import Report
 
 
 def home(request):
@@ -15,12 +15,13 @@ def input_form(request, catagory):
     """        Worker can input store related information.    """ 
 
     # As catagory is foreign key it will just store it's pk to Item table that's 
-    #why we need to search both Catagory and Item table to get proper dynamic filtering.
+    # why we need to search both Catagory and Item table to get proper dynamic filtering.
     catagory = Catagory.objects.get(name=catagory)          # Collecting the name of catagory
     items = Item.objects.filter(catagory=catagory.id)       # Filtering item name from items using catagory.id
-    vendors = Vendor.objects.all()
-    stock_locations = StockLocation.objects.all()
+    vendors = Vendor.objects.all()                          # Collecting all vendors
+    stock_locations = StockLocation.objects.all()           # Collecting all stock locations
 
+    # Sending all needed values to webpage via context
     context = {
         "form": WorkerInputForm,
         "items": items,
@@ -32,7 +33,7 @@ def input_form(request, catagory):
 
 def input_form_submit(request):
     """ When form is submitted it will check and validate as wll as save data. """
-    if request.method == "POST":    
+    if request.method == "POST":                            # Checking the submit form request is post or not
         # If your request is post then only this conditon will run otherwise not.
         item_name = request.POST.get("item_name")   
         vendor = request.POST.get("vendor_name")     
@@ -44,7 +45,7 @@ def input_form_submit(request):
         ending_balance = request.POST.get("ending_balance")     
         issued_to = request.POST.get("issued_to")     
         comments = request.POST.get("comments")     
-        added_by = request.user.username          
+        added_by = request.user.username                    # Getting the information of loged in user        
         # print(item_name, item_no, vendor, stock_location, cost_per_unit, previous_balance, issued, issued_to, ending_balance, comments)
         
         # Collecting the information of a full row/object from diffrent model/table.
@@ -67,7 +68,7 @@ def input_form_submit(request):
                     added_by = added_by)
         report_save.save()
         
-        # Previous balance update depending on ending_balance
+        # Previous balance update depending on ending_balance. Table name = Item
         Item.objects.filter(name=item_name).update(balance=ending_balance)     
         
     return redirect('worker_report')
@@ -83,9 +84,24 @@ def worker_report(request, date=None, itemNo=None, itemName=None, vendor=None):
     print(value2)
     print(value3)
     print(value4)
+    print(datetime.now())
     
-    report = Report.objects.all()
+    if date is not None:
+        date = request.POST.get('date')  
+        report = Report.objects.filter(date=date)
+    if itemNo is not None:
+        item_no = request.POST.get('itemNo')
+        report = Report.objects.filter(item_no=item_no)
+    elif itemName is not None:
+        item_name = request.POST.get('itemName')  
+        report = Report.objects.filter(item_name=item_name)
+    elif vendor is not None:
+        vendor = request.POST.get('vendor')
+        report = Report.objects.filter(vendor=vendor)
+    else:
+        report = Report.objects.all()
     
+    # Sending all needed values to webpage via context
     context = {
         "date": datetime.now(),
         "report": report,
