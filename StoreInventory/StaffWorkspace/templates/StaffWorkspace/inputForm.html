@@ -20,7 +20,7 @@
                 <div class="form-group row">
                     <span class="col-md-4">Item Name:</span>
                     <select class="form-control col-md-8" onchange="itemChange()" id="item" name ="item_name">
-                        <option selected disabled hidden>Select</option>
+                        <option selected value="Select">Select</option>
                         {% for item in items %}
                             <option value="{{ item.name }}">{{ item.name }}</option>
                         {% endfor %}
@@ -28,8 +28,8 @@
                 </div>
                 <div class="form-group row">
                     <span class="col-md-4">Vendor:</span>
-                    <select class="form-control col-md-8" name ="vendor_name">
-                        <option selected disabled hidden>Select</option>
+                    <select class="form-control col-md-8" id="vendor_name" name="vendor_name">
+                        <option selected value="Select">Select</option>
                         {% for vendor in vendors %}
                             <option value="{{ vendor.name }}">{{ vendor.name }}</option>
                         {% endfor %}
@@ -37,8 +37,8 @@
                 </div>
                 <div class="form-group row">
                     <span class="col-md-4">Stock Location:</span>
-                    <select class="form-control col-md-8" name ="stock_location">
-                        <option selected disabled hidden>Select</option>
+                    <select class="form-control col-md-8" id="stock_location" name="stock_location">
+                        <option selected value="Select">Select</option>
                         {% for location in stock_locations %}
                             <option value="{{ location.name }}">{{ location.name }} - {{ location.address }}</option>
                         {% endfor %}
@@ -74,7 +74,7 @@
                 </div>
                 <br/>
                 <div class="submitDesign">
-                    <button type="submit" class="btn btn-default submitButton" id="submit">Submit</button>
+                    <button type="submit" class="btn btn-default submitButton" id="submit" onclick="submitValidation()">Submit</button>
                 </div>
             </form>
         </div>
@@ -105,10 +105,27 @@
                 document.getElementById("submit").disabled = true;          // If input isn't ok then you can't submit
             }
         }
+        
         function purchaseItem(){
             var ending_balance = parseInt(document.getElementById("previous_balance").value) + parseInt(document.getElementById("id_purchase").value);
             document.getElementById("id_ending_balance").value = ending_balance;
             console.log(ending_balance);
+        }
+        
+        function submitValidation(){
+            if(document.getElementById("item").value=="Select" || document.getElementById("vendor_name").value=="Select" || document.getElementById("stock_location").value=="Select"
+            || (document.getElementById("id_purchase").value==0 && document.getElementById("id_issued").value==0)){
+                event.preventDefault();
+                alert("You didn't fill form properly.");
+            }
+            else if(document.getElementById("id_purchase").value!=0 && document.getElementById("id_cost_per_unit").value==0){
+                event.preventDefault();
+                alert("You didn't fill Cost / Unit.");
+            }
+            else if(document.getElementById("id_issued").value!=0 && document.getElementById("id_issued_to").value==''){
+                event.preventDefault();
+                alert("You didn't fill Issued to.");
+            }
         }
     </script>
 {% endblock %}
