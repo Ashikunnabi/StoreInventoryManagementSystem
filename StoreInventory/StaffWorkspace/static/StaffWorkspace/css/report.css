@@ -1,0 +1,30 @@
+.logout{
+    float: right;
+    margin-top: 30px;
+}
+.logout button{
+    height: 30px;
+    width: 105px;
+    padding: 0;
+    color: #2303EF;
+    background-color: white;
+    border: 1px solid #2303EF;
+    border-radius: 22px;
+    
+}
+.contents{
+    height: 600px;
+    padding: 120px;
+    margin-left: 6%;
+}
+.contents a{
+    color: black;
+}
+.buttonAll{
+    text-align: center;
+    margin: 90px auto;
+}
+.buttons{
+    width: 300px;
+    margin: 5px;
+}

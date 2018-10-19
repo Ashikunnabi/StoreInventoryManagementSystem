@@ -15,11 +15,30 @@
         <table class="tableEdit">
             <tr>
                 <th>Sl No.</th>
-                <form action="{% url 'worker_report_search' 'date' 'itemNo' 'itemName' 'vendor' %}" method="POST" novalidate>
-                {% csrf_token %}
-                    <th><input type="date" name="date"></th>                
+                <th class="date">
+                    <form action="{% url 'worker_report_search' 'date' %}" method="POST" novalidate>
+                    {% csrf_token %}                    
+                        <input type="date" name="date">
+                        <input type="submit"style=" display: none">
+                    </form>
+                    <form action="{% url 'worker_report_search' 'month' %}" method="POST" novalidate>
+                    {% csrf_token %}                    
+                        <input type="text" class="date_month" placeholder="mm/yyyy" name="month">
+                        <input type="submit"style=" display: none">
+                    </form>
+                </th> 
+                <form action="{% url 'worker_report_search' 'itemNo' %}" method="POST" novalidate>
+                {% csrf_token %}           
                     <th><input type="text" placeholder="Item No." size="6" name="itemNo"></th>
+                    <input type="submit"style=" display: none">
+                </form>
+                <form action="{% url 'worker_report_search' 'itemName' %}" method="POST" novalidate>
+                {% csrf_token %}
                     <th><input type="text" placeholder="Item Name" size="10" name="itemName"></th>
+                    <input type="submit"style=" display: none">
+                </form>
+                <form action="{% url 'worker_report_search' 'vendor' %}" method="POST" novalidate>
+                {% csrf_token %}
                     <th><input type="text" placeholder="Vendor" size="10" name="vendor"></th>
                     <input type="submit"style=" display: none">
                 </form>

@@ -13,11 +13,14 @@ class Item(models.Model):
     item_no = models.IntegerField()
     name = models.CharField(max_length=20)
     balance = models.IntegerField()
+    cost_per_unit = models.FloatField()
+    safety_stock_limit = models.IntegerField()
     catagory = models.ForeignKey('Catagory', on_delete=models.CASCADE) # If Catagory is no more then related item will also auto deleted
                                                                        # as because on_delete=models.CASCADE
     
     def __str__(self):
-        return self.name                                                                     
+        return self.name   
+        
     
 class ItemAdmin(admin.ModelAdmin):
         """ This class is made for custom admin design in Item tab. """

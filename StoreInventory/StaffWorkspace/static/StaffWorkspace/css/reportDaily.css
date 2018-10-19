@@ -49,6 +49,12 @@ table th input {
 input::placeholder{
     color: white;
 }
+.date{
+    width: 1px;
+}
+.date_month{
+    width: 144px;
+}
 .printButton{
 	text-align: center;
 }

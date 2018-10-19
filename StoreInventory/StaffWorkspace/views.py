@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 from django.shortcuts import render, redirect
 from .forms import WorkerInputForm
 from .models import Report
@@ -71,42 +71,56 @@ def input_form_submit(request):
         # Previous balance update depending on ending_balance. Table name = Item
         Item.objects.filter(name=item_name).update(balance=ending_balance)     
         
-    return redirect('worker_report')
-    
+    return redirect('report')
 
-def worker_report(request, date=None, itemNo=None, itemName=None, vendor=None):
-    """        Report generation for worker.    """
-    value1 = request.POST.get('itemNo')  
-    value2 = request.POST.get('itemName')  
-    value3 = request.POST.get('vendor')  
-    value4 = request.POST.get('date')  
+
+def report(request):
+    return render(request, "StaffWorkspace/report.html")
+
+def worker_report(request, value=None):
+    """        Report generation for worker.    """ 
+    # Catching post values
+    value1 = request.POST.get('date')  
+    value2 = request.POST.get('month')  
+    value3 = request.POST.get('itemNo')  
+    value4 = request.POST.get('itemName')  
+    value5 = request.POST.get('vendor')
+    """   
+    # Testing purpose
     print(value1)
     print(value2)
     print(value3)
     print(value4)
     print(datetime.now())
+    """
     
-    if date is not None:
-        date = request.POST.get('date')  
-        report = Report.objects.filter(date=date)
-    if itemNo is not None:
+    if value1 is not None:
+        date = request.POST.get('date')
+        report = Report.objects.filter(date = date)
+    elif value2 is not None:
+        month = request.POST.get('month')
+        month, year = month.split("/")
+        report = Report.objects.filter(date__year=year, date__month=month)
+    elif value3 is not None:
         item_no = request.POST.get('itemNo')
         report = Report.objects.filter(item_no=item_no)
-    elif itemName is not None:
-        item_name = request.POST.get('itemName')  
-        report = Report.objects.filter(item_name=item_name)
-    elif vendor is not None:
+    elif value4 is not None:
+        item_name = request.POST.get('itemName') 
+        item_name = Item.objects.get(name =item_name) 
+        report = Report.objects.filter(item_name=item_name.id)
+    elif value5 is not None:
         vendor = request.POST.get('vendor')
+        vendor = Vendor.objects.get(name=vendor) 
         report = Report.objects.filter(vendor=vendor)
     else:
-        report = Report.objects.all()
+        report = Report.objects.filter(date__year=datetime.now().year, date__month=datetime.now().month)
     
     # Sending all needed values to webpage via context
     context = {
         "date": datetime.now(),
         "report": report,
     }
-    return render(request, 'StaffWorkspace/workerReport.html', context)
+    return render(request, 'StaffWorkspace/reportDaily.html', context)
 
 
 def worker_report_print(request):

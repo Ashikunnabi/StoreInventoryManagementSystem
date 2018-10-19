@@ -11,7 +11,7 @@
             <button type="button" class="btn btn-default">Logout</button>
         </div>
         <div class="logout_report">
-            <a href="{% url 'worker_report' %}"><button type="button" class="btn btn-default">Report</button></a>
+            <a href="{% url 'report' %}"><button type="button" class="btn btn-default">Report</button></a>
         </div>
         
         <div class="formDesign">
@@ -38,7 +38,7 @@
                 <div class="form-group row">
                     <span class="col-md-4">Stock Location:</span>
                     <select class="form-control col-md-8" id="stock_location" name="stock_location">
-                        <option selected value="Select">Select</option>
+                        <option selected  value="Select">Select</option>
                         {% for location in stock_locations %}
                             <option value="{{ location.name }}">{{ location.name }} - {{ location.address }}</option>
                         {% endfor %}
@@ -48,6 +48,7 @@
                     <span class="col-md-4">Cost / Unit:</span>
                     {{ form.cost_per_unit }}
                 </div>
+                <input type="text" hidden id="safety_stock_limit">
                 <div class="form-group row">
                     <span class="col-md-4">Previous Balance:</span>
                     <input type="text" class="form-control col-md-8" id="previous_balance" name ="previous_balance" readonly>
@@ -63,6 +64,7 @@
                 <div class="form-group row">
                     <span class="col-md-4">Ending Balance:</span>
                     {{ form.ending_balance }}
+                    <p id="ending_balance_comment"></p>
                 </div>                
                 <div class="form-group row">
                     <span class="col-md-4">Issued to:</span>
@@ -86,6 +88,8 @@
             {% for item in items %}
                 if (document.getElementById("item").value == "{{ item.name }}"){
                     document.getElementById("previous_balance").value = "{{ item.balance }}";
+                    document.getElementById("id_cost_per_unit").value = "{{ item.cost_per_unit }}";
+                    document.getElementById("safety_stock_limit").value = "{{ item.safety_stock_limit }}";
                     console.log("{{ item.balance }}"); // Testing on browser
                 }
             {% endfor %}
@@ -96,18 +100,29 @@
             if (parseInt(document.getElementById("id_issued").value) <= parseInt(document.getElementById("previous_balance").value)){
                     document.getElementById("id_ending_balance").style.borderColor = "#ced4da"; // border color when input value is proper
                     document.getElementById("submit").disabled = false;         // If input is ok then you can submit
-                    var ending_balance = parseInt(document.getElementById("previous_balance").value) - parseInt(document.getElementById("id_issued").value);
+                        document.getElementById("ending_balance_comment").innerHTML =""
+                    var ending_balance = parseInt(document.getElementById("previous_balance").value) + parseInt(document.getElementById("id_purchase").value) -  parseInt(document.getElementById("id_issued").value);
                     document.getElementById("id_ending_balance").value = ending_balance;
                     console.log(ending_balance);
+                    
+                    if (parseInt(document.getElementById("id_ending_balance").value) <= parseInt(document.getElementById("safety_stock_limit").value)){                        
+                        document.getElementById("id_ending_balance").style.backgroundColor = "yellow"; // border color when safety_stock_limit crossed
+                        document.getElementById("ending_balance_comment").innerHTML ="*You are crossing the Safety Stock Limit. So purchase new item."
+                    }
+                    else{
+                        document.getElementById("id_ending_balance").style.backgroundColor = "white"; // border color
+                        document.getElementById("ending_balance_comment").innerHTML =""
+                    }
             }
             else{
                 document.getElementById("id_ending_balance").style.borderColor = "red"; // border color when input value is false
+                        document.getElementById("ending_balance_comment").innerHTML ="*You don't have enough item."
                 document.getElementById("submit").disabled = true;          // If input isn't ok then you can't submit
             }
         }
         
         function purchaseItem(){
-            var ending_balance = parseInt(document.getElementById("previous_balance").value) + parseInt(document.getElementById("id_purchase").value);
+            var ending_balance = parseInt(document.getElementById("previous_balance").value) + parseInt(document.getElementById("id_purchase").value) -  parseInt(document.getElementById("id_issued").value);
             document.getElementById("id_ending_balance").value = ending_balance;
             console.log(ending_balance);
         }

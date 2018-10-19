@@ -1,0 +1,24 @@
+{% extends "StaffWorkspace/base.html" %}
+{% load static %}
+
+{% block extraCSS %}
+    <link rel="stylesheet" href="{% static 'StaffWorkspace/css/report.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="logout">
+            <button type="button" class="btn btn-default">Logout</button>
+        </div>
+        <div class="contents">
+            <div class="row buttonAll">
+                <a href="{% url 'worker_report' %}">                
+                    <button type="button" class="buttons btn btn-primary col-md-10">Daily Report</button>   
+                </a>         
+                <a href="{% url 'worker_report' %}">                
+                    <button type="button" class="buttons btn btn-success col-md-10">Monthly Report</button>   
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

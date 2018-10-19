@@ -13,9 +13,15 @@
 
 .footer{
     width: 100%;
-    height: 40px;
     border-bottom: 5px solid #2303EF;
     background-color: #060610;
     color: white;
-    text-align: center;
+    text-align: center;    
+    line-height: 20px;
+}
+
+.footer span{
+    height: 10px;
+    background-color: white; 
+    color: black;
 }
