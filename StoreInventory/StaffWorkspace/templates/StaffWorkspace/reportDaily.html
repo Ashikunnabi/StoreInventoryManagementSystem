@@ -16,28 +16,28 @@
             <tr>
                 <th>Sl No.</th>
                 <th class="date">
-                    <form action="{% url 'worker_report_search' 'date' %}" method="POST" novalidate>
+                    <form action="{% url 'report_daily_search' 'date' %}" method="POST" novalidate>
                     {% csrf_token %}                    
                         <input type="date" name="date">
                         <input type="submit"style=" display: none">
                     </form>
-                    <form action="{% url 'worker_report_search' 'month' %}" method="POST" novalidate>
+                    <form action="{% url 'report_daily_search' 'month' %}" method="POST" novalidate>
                     {% csrf_token %}                    
                         <input type="text" class="date_month" placeholder="mm/yyyy" name="month">
                         <input type="submit"style=" display: none">
                     </form>
                 </th> 
-                <form action="{% url 'worker_report_search' 'itemNo' %}" method="POST" novalidate>
+                <form action="{% url 'report_daily_search' 'itemNo' %}" method="POST" novalidate>
                 {% csrf_token %}           
                     <th><input type="text" placeholder="Item No." size="6" name="itemNo"></th>
                     <input type="submit"style=" display: none">
                 </form>
-                <form action="{% url 'worker_report_search' 'itemName' %}" method="POST" novalidate>
+                <form action="{% url 'report_daily_search' 'itemName' %}" method="POST" novalidate>
                 {% csrf_token %}
                     <th><input type="text" placeholder="Item Name" size="10" name="itemName"></th>
                     <input type="submit"style=" display: none">
                 </form>
-                <form action="{% url 'worker_report_search' 'vendor' %}" method="POST" novalidate>
+                <form action="{% url 'report_daily_search' 'vendor' %}" method="POST" novalidate>
                 {% csrf_token %}
                     <th><input type="text" placeholder="Vendor" size="10" name="vendor"></th>
                     <input type="submit"style=" display: none">
@@ -71,8 +71,63 @@
             
         </table>
 		<div class="printButton">
-			<a href="{% url 'worker_report_print' %}" target="_blank"> <button>Print</button> </a>
+			<button onclick="printReport()">Print</button>
 		</div>
-    </div>   
+    </div> 
+    <script>
+    function printReport(){
+        var full_page = document.body.innerHTML;
+        var content = document.getElementById("printArea").innerHTML;        
+        document.body.innerHTML = content;
+        window.print();
+        document.body.innerHTML = full_page;
+    }
+    </script>
+
+    <!-- Below codes are for print report -->
+<div id="printArea">
+        <div class="printAreaheader">
+            <img src="{% static 'StaffWorkspace/img/logo.png' %}" alt="Mas Trade International LTD. Logo">
+        </div>
+        <hr/>
+        <h3 class="printAreareport">Report of &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</h3>
+        
+        <div class="container-fluid" >    
+            <table id="printAreatableEdit">
+                <tr id="printAreatr">
+                    <th id="printAreath">Sl No.</th>
+                    <th id="printAreath">Date</th>
+                    <th id="printAreath">Item No.</th>
+                    <th id="printAreath">Item Name</th>
+                    <th id="printAreath">Vendor</th>
+                    <th id="printAreath">Stock Location</th>
+                    <th id="printAreath">Cost/Unit</th>
+                    <th id="printAreath">Previous Balance</th>
+                    <th id="printAreath">Purchase</th>
+                    <th id="printAreath">Issued</th>
+                    <th id="printAreath">Ending Balance</th>
+                    <th id="printAreath">Issued To</th>
+                    <th id="printAreath">Comments</th>
+                </tr>
+                {% for item in report %}
+                <tr id="printAreatr">
+                    <td id="printAreatd">{{ forloop.counter }}</td>
+                    <td id="printAreatd">{{ item.date }}</td> 
+                    <td id="printAreatd">{{ item.item_no }}</td>
+                    <td id="printAreatd">{{ item.item_name }}</td> 
+                    <td id="printAreatd">{{ item.vendor }}</td>
+                    <td id="printAreatd">{{ item.stock_location }}</td> 
+                    <td id="printAreatd">{{ item.cost_per_unit }}</td>
+                    <td id="printAreatd">{{ item.previous_balance }}</td> 
+                    <td id="printAreatd">{{ item.purchase }}</td> 
+                    <td id="printAreatd">{{ item.issued }}</td> 
+                    <td id="printAreatd">{{ item.ending_balance }}</td>
+                    <td id="printAreatd">{{ item.issued_to }}</td> 
+                    <td id="printAreatd">{{ item.comments }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>    
 
 {% endblock %}

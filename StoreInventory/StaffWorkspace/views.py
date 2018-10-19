@@ -77,7 +77,7 @@ def input_form_submit(request):
 def report(request):
     return render(request, "StaffWorkspace/report.html")
 
-def worker_report(request, value=None):
+def report_daily(request, value=None):
     """        Report generation for worker.    """ 
     # Catching post values
     value1 = request.POST.get('date')  
@@ -121,8 +121,3 @@ def worker_report(request, value=None):
         "report": report,
     }
     return render(request, 'StaffWorkspace/reportDaily.html', context)
-
-
-def worker_report_print(request):
-    """        Report print for worker.    """
-    return render(request, 'StaffWorkspace/workerReportPrint.html')

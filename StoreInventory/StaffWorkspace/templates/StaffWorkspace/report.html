@@ -12,12 +12,16 @@
         </div>
         <div class="contents">
             <div class="row buttonAll">
-                <a href="{% url 'worker_report' %}">                
-                    <button type="button" class="buttons btn btn-primary col-md-10">Daily Report</button>   
-                </a>         
-                <a href="{% url 'worker_report' %}">                
-                    <button type="button" class="buttons btn btn-success col-md-10">Monthly Report</button>   
-                </a>
+                <div class="col-md-6">
+                    <a href="{% url 'report_daily' %}">                
+                        <button type="button" class="buttons btn btn-primary col-md-10">Daily Report</button>   
+                    </a> 
+                </div> 
+                <div class="col-md-6">             
+                    <a href="{% url 'report_daily' %}">                
+                        <button type="button" class="buttons btn btn-success col-md-10">Monthly Report</button>   
+                    </a>
+                </div>   
             </div>
         </div>
     </div>

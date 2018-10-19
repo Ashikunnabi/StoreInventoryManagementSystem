@@ -39,3 +39,7 @@
 	All the search field working properly in reportDaily
 	One more search field added - month
 	New page created in staffWorkspace - report.html
+010:
+	Worker_report_print.html, js, css page deleted as because print is now inside
+	of Worker report page
+	Print is working properly.
