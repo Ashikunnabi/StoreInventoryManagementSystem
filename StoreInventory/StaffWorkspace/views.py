@@ -121,3 +121,59 @@ def report_daily(request, value=None):
         "report": report,
     }
     return render(request, 'StaffWorkspace/reportDaily.html', context)
+    
+    
+def report_monthly(request, value=None):
+    """     Monthly report generation item wise     """
+    # Pre defined values default = 0
+    purchase_item = 0
+    issued_item = 0
+    previous_balance = 0
+    ending_balance = 0
+    total_change = []                                                       # Trackng the change for individual changes
+    value1 = request.POST.get('month')                                      # Getting the value from requester, method is POST
+    
+    # If sender sends value of month then this comparison will start working
+    if value1 is not None:
+        month = request.POST.get('month')
+        month, year = month.split("/")                                      # Deviding 10/2018 into month=10, year=2018
+        item_all = Item.objects.all()                                       # All items
+        report = Report.objects.filter(date__year=year, date__month=month)  # Requesting for given month
+        
+        for item_detail in item_all:                                              
+            for reports in report:                
+                if str(item_detail.name) == str(reports.item_name):               # If there is any report on that month then continue
+                    previous_balance = Report.objects.filter(date__year=year, date__month=month, item_name=item_detail.id).first().previous_balance
+                    purchase_item = purchase_item + reports.purchase
+                    issued_item = issued_item + reports.issued
+                else:                                                       # Otherwise put last transition from any month
+                    report_not_in_this_month = Report.objects.filter(item_name=item_detail.id).last()
+                    try:                                                    # If there is any transition then continue        
+                        previous_balance = report_not_in_this_month.previous_balance
+                        ending_balance = report_not_in_this_month.ending_balance
+                    except:                                                 # Otherwise show except state
+                        previous_balance = 0
+                        ending_balance = 0
+                    
+            ending_balance = previous_balance + purchase_item - issued_item # Ending balance calculation
+            # All changes stored in total_change list to supply in template
+            total_change.append([item_detail.item_no, item_detail.name, previous_balance, purchase_item, issued_item, ending_balance]) 
+            """
+            # Testing purpose
+            print(item_detail.name, "=", total_change)
+            print(item_detail.name, "=", purchase_item)
+            print(item_detail.name, "=", issued_item)
+            """
+            # Reset default values
+            purchase_item = 0
+            issued_item = 0
+            previous_balance = 0
+            ending_balance = 0
+    else:
+        pass
+        
+    context = {
+        "date": datetime.now(),
+        "total_changes": total_change,
+    }
+    return render(request, 'StaffWorkspace/reportMonthly.html', context)

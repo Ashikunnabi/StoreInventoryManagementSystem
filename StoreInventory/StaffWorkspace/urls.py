@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.urls import path
 
-from .views import home, input_form, input_form_submit, report, report_daily
+from .views import home, input_form, input_form_submit, report, report_daily, report_monthly
 
 urlpatterns = [
     path('', home, name='home'),
@@ -24,4 +24,6 @@ urlpatterns = [
     path('report', report, name='report'),
     path('report_daily', report_daily, name='report_daily'),
     path('report_daily/<value>', report_daily, name='report_daily_search'),
+    path('report_monthly', report_monthly, name='report_monthly'),
+    path('report_monthly/<value>', report_monthly, name='report_monthly_search'),
 ]

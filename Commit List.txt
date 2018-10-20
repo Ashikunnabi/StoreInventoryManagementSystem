@@ -43,3 +43,5 @@
 	Worker_report_print.html, js, css page deleted as because print is now inside
 	of Worker report page
 	Print is working properly.
+011:
+	Monthly Report is generating successfully.

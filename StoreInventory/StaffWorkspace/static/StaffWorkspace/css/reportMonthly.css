@@ -1,0 +1,107 @@
+.logout_report{
+    float: right;
+    margin-top: 25px;
+    padding: 5px;
+}
+.logout_report button{
+    height: 30px;
+    width: 105px;
+    padding: 0;
+    color: #2303EF;
+    background-color: white;
+    border: 1px solid #2303EF;
+    border-radius: 22px;    
+}
+.report{
+    margin: 30px 0px;
+    text-align: center;
+}
+.tableEdit{
+    margin: 25px auto;
+    width: 90%;
+}
+table{
+    font-size: 13px;
+    margin: 20px;
+    text-align: center;
+    border-collapse: collapse;
+}
+table th,td{
+    border: 1px solid black;
+    padding: 8px;
+}
+table th{
+    background-color: #2303EF;
+    color: white;
+}
+tr:nth-child(odd){
+    background-color: #bfbfd4;
+}
+tr:hover {
+    background-color: #6ae2d7;
+    font-weight: bold;
+}
+table th input {
+    background-color: #2303EF;
+    border: 1px solid #5252e8;
+    color: white;
+    text-align: center;
+}
+input::placeholder{
+    color: white;
+}
+.date_month{
+    text-align: center;
+}
+.date_month::placeholder{
+    color: black;
+}
+.month_search{
+    margin-left: 50px;
+}
+.printButton{
+	text-align: center;
+}
+.printButton button{    
+	height: 30px;
+    width: 105px;
+    padding: 0;
+    margin-bottom: 20px;
+    color: #2303EF;
+    background-color: white;
+    border: 1px solid #2303EF;
+    border-radius: 22px; 
+}
+
+/* This below css's are for printing purpose */
+#printArea{
+    display: none;
+}
+.printAreaheader{
+    width: 100%;
+    height: 95px;
+    text-align: center;
+}
+.printAreaheader img{
+    width: 700px;
+    height: 80px;
+}
+.printAreareport{
+    margin: 10px 0px;
+    text-align: center;
+}
+#printAreatableEdit{
+    margin: 25px auto;
+    width: 90%;
+}
+#printAreatableEdit{
+    border-collapse: collapse;
+    font-size: 13px;
+    text-align: center;
+}
+#printAreath, #printAreatd{
+    background-color: white;
+    border: 1px solid black;
+    padding: 8px;
+    color: black;
+}

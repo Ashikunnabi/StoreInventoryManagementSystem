@@ -2,39 +2,94 @@
 {% load static %}
 
 {% block extraCSS %}
-    <link rel="stylesheet" href="{% static 'StaffWorkspace/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'StaffWorkspace/css/reportMonthly.css' %}">
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="logout">
-            <button type="button" class="btn btn-default">Logout</button>
-        </div>
-        <div class="contents">
-            <a href="{% url 'input_form' 'Machine' %}">
-                <div class="option" style="border: 5px solid #03818E;">
-                    <div class="optionImage" style="background-color: #03818E;">
-                        <img src="{% static 'StaffWorkspace/img/machine.png' %}" alt="Machine">
-                    </div>
-                    <p class="optionText">MACHINE</p>
-                </div>
-            </a>
-            <a href="">
-                <div class="option" style="border: 5px solid #1E1E1E;">
-                    <div class="optionImage" style="background-color: #1E1E1E;">
-                        <img src="{% static 'StaffWorkspace/img/stationary.png' %}" alt="Stationary">
-                    </div>
-                    <p class="optionText">STATIONARY</p>
-                </div>
-            </a>
-            <a href="">
-                <div class="option" style="border: 5px solid #033775;">
-                    <div class="optionImage" style="background-color: #033775;">
-                        <img src="{% static 'StaffWorkspace/img/others.png' %}" alt="Others">
-                    </div>
-                    <p class="optionText">OTHERS</p>
-                </div>
-            </a>
-        </div>
+    <div class="logout_report">
+        <button type="button" class="btn btn-default">Logout</button>
     </div>
+    <h3 class="report">{{ date }}</h3>
+
+    <div class="container-fluid">    
+        <div class="row month_search">
+            <form action="{% url 'report_monthly_search' 'month' %}" method="POST" novalidate>
+                {% csrf_token %}
+                <span class="col-md-6">Month:</span>
+                <input type="text" class="date_month col-md-6" placeholder="mm/yyyy" name="month">
+                <input type="submit"style=" display: none">
+            </form>
+        </div>
+        <table class="tableEdit">
+            <tr>
+                <th>Sl No.</th>                
+                <form action="{% url 'report_daily_search' 'itemNo' %}" method="POST" novalidate>
+                {% csrf_token %}           
+                    <th><input type="text" placeholder="Item No." size="6" name="itemNo"></th>
+                    <input type="submit"style=" display: none">
+                </form>
+                <form action="{% url 'report_daily_search' 'itemName' %}" method="POST" novalidate>
+                {% csrf_token %}
+                    <th><input type="text" placeholder="Item Name" size="10" name="itemName"></th>
+                    <input type="submit"style=" display: none">
+                </form>
+                <th>Previous Balance</th>
+                <th>Purchase</th>
+                <th>Issued</th>
+                <th>Ending Balance</th>
+            </tr>
+            
+            {% for report in total_changes %}<tr>
+                <td>{{ forloop.counter }}</td>
+                {% for report_details in report %}                
+                    <td>{{ report_details }}</td>
+                {% endfor %}</tr>
+            {% endfor %}
+            
+        </table>
+		<div class="printButton">
+			<button onclick="printReport()">Print</button>
+		</div>
+    </div> 
+    <script>
+    function printReport(){
+        var full_page = document.body.innerHTML;
+        var content = document.getElementById("printArea").innerHTML;        
+        document.body.innerHTML = content;
+        window.print();
+        document.body.innerHTML = full_page;
+    }
+    </script>
+
+    <!-- Below codes are for print report -->
+<div id="printArea">
+        <div class="printAreaheader">
+            <img src="{% static 'StaffWorkspace/img/logo.png' %}" alt="Mas Trade International LTD. Logo">
+        </div>
+        <hr/>
+        <h3 class="printAreareport">Report of &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</h3>
+        
+        <div class="container-fluid" >    
+            <table id="printAreatableEdit">
+                <tr id="printAreatr">
+                    <th id="printAreath">Sl No.</th>
+                    <th id="printAreath">Item No.</th>
+                    <th id="printAreath">Item Name</th>
+                    <th id="printAreath">Previous Balance</th>
+                    <th id="printAreath">Purchase</th>
+                    <th id="printAreath">Issued</th>
+                    <th id="printAreath">Ending Balance</th>
+                </tr>
+                {% for report in total_changes %}                    
+                    <tr id="printAreatr">
+                        <td id="printAreatd">{{ forloop.counter }}</td>
+                        {% for report_details in report %}                
+                            <td id="printAreatd">{{ report_details }}</td>
+                        {% endfor %}                    
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>    
+
 {% endblock %}
