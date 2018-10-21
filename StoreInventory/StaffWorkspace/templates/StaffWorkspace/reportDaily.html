@@ -7,7 +7,9 @@
 
 {% block content %}
     <div class="logout_report">
-        <button type="button" class="btn btn-default">Logout</button>
+        <a href="{% url 'logout_user' %}">
+            <button type="button" class="btn btn-default">Logout</button>
+        </a>
     </div>
     <h3 class="report">{{ date }}</h3>
 
@@ -16,28 +18,28 @@
             <tr>
                 <th>Sl No.</th>
                 <th class="date">
-                    <form action="{% url 'report_daily_search' 'date' %}" method="POST" novalidate>
+                    <form action="{% url 'report_daily_search' 'date' %}" method="POST">
                     {% csrf_token %}                    
                         <input type="date" name="date">
                         <input type="submit"style=" display: none">
                     </form>
-                    <form action="{% url 'report_daily_search' 'month' %}" method="POST" novalidate>
+                    <form action="{% url 'report_daily_search' 'month' %}" method="POST">
                     {% csrf_token %}                    
-                        <input type="text" class="date_month" placeholder="mm/yyyy" name="month">
+                        <input type="text" class="date_month" placeholder="mm/yyyy" name="month"  pattern="^1?\d\/\d{4}$">
                         <input type="submit"style=" display: none">
                     </form>
                 </th> 
-                <form action="{% url 'report_daily_search' 'itemNo' %}" method="POST" novalidate>
+                <form action="{% url 'report_daily_search' 'itemNo' %}" method="POST">
                 {% csrf_token %}           
                     <th><input type="text" placeholder="Item No." size="6" name="itemNo"></th>
                     <input type="submit"style=" display: none">
                 </form>
-                <form action="{% url 'report_daily_search' 'itemName' %}" method="POST" novalidate>
+                <form action="{% url 'report_daily_search' 'itemName' %}" method="POST">
                 {% csrf_token %}
                     <th><input type="text" placeholder="Item Name" size="10" name="itemName"></th>
                     <input type="submit"style=" display: none">
                 </form>
-                <form action="{% url 'report_daily_search' 'vendor' %}" method="POST" novalidate>
+                <form action="{% url 'report_daily_search' 'vendor' %}" method="POST">
                 {% csrf_token %}
                     <th><input type="text" placeholder="Vendor" size="10" name="vendor"></th>
                     <input type="submit"style=" display: none">
@@ -51,6 +53,7 @@
                 <th>Issued To</th>
                 <th>Comments</th>
             </tr>
+            
             {% for item in report %}
             <tr>
                 <td>{{ forloop.counter }}</td>
@@ -67,6 +70,10 @@
                 <td>{{ item.issued_to }}</td> 
                 <td>{{ item.comments }}</td>
             </tr>
+            {% empty %}
+                <tr>
+                <td class="noSearchFound" colspan="13"> No search found.</td>
+                </tr>
             {% endfor %}
             
         </table>

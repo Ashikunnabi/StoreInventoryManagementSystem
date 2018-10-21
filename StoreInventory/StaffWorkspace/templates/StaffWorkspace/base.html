@@ -2,8 +2,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Mas Trade International LTD.</title>
+  <title>Mas Trade International Garments LTD.</title>
   <meta charset="utf-8">
+  <link rel="shortcut icon" type="image/png" href="{% static 'StaffWorkspace/img/favicon.png' %}"/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{% static 'StaffWorkspace/css/bootstrap.min.css' %}">
   <link rel="stylesheet" href="{% static 'StaffWorkspace/css/base.css' %}">
@@ -12,7 +13,9 @@
 </head>
 <body>
     <div class="header">
-        <image src="{% static 'StaffWorkspace/img/logo.png' %}" alt="Mas Trade International LTD. Logo">        
+        <a href="{% url 'home' %}">
+            <image src="{% static 'StaffWorkspace/img/logo.png' %}" alt="Mas Trade International LTD. Logo">
+        </a>       
     </div>
     
     {% block content %}

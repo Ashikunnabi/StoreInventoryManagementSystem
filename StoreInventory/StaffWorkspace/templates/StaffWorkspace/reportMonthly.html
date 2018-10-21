@@ -7,16 +7,18 @@
 
 {% block content %}
     <div class="logout_report">
-        <button type="button" class="btn btn-default">Logout</button>
+        <a href="{% url 'logout_user' %}">
+            <button type="button" class="btn btn-default">Logout</button>
+        </a>
     </div>
     <h3 class="report">{{ date }}</h3>
 
     <div class="container-fluid">    
         <div class="row month_search">
-            <form action="{% url 'report_monthly_search' 'month' %}" method="POST" novalidate>
+            <form action="{% url 'report_monthly_search' 'month' %}" method="POST">
                 {% csrf_token %}
                 <span class="col-md-6">Month:</span>
-                <input type="text" class="date_month col-md-6" placeholder="mm/yyyy" name="month">
+                <input type="text" class="date_month col-md-6" placeholder="mm/yyyy" name="month" pattern="^1?\d\/\d{4}$">
                 <input type="submit"style=" display: none">
             </form>
         </div>
@@ -44,6 +46,10 @@
                 {% for report_details in report %}                
                     <td>{{ report_details }}</td>
                 {% endfor %}</tr>
+            {% empty %}
+                <tr>
+                <td class="noSearchFound" colspan="7"> No search found.</td>
+                </tr>
             {% endfor %}
             
         </table>

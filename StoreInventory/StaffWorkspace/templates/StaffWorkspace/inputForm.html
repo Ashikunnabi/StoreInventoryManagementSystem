@@ -7,8 +7,10 @@
 
 {% block content %}
     <div class="container">
-        <div class="logout_report">
-            <button type="button" class="btn btn-default">Logout</button>
+        <div class="logout_report ">
+            <a href="{% url 'logout_user' %}">
+                <button type="button" class="btn btn-default">Logout</button>
+            </a>
         </div>
         <div class="logout_report">
             <a href="{% url 'report' %}"><button type="button" class="btn btn-default">Report</button></a>
@@ -116,7 +118,8 @@
             }
             else{
                 document.getElementById("id_ending_balance").style.borderColor = "red"; // border color when input value is false
-                        document.getElementById("ending_balance_comment").innerHTML ="*You don't have enough item."
+                document.getElementById("id_ending_balance").style.backgroundColor = "white"; // border color
+                document.getElementById("ending_balance_comment").innerHTML ="*You don't have enough item."
                 document.getElementById("submit").disabled = true;          // If input isn't ok then you can't submit
             }
         }

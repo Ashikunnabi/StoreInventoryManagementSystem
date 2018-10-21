@@ -8,7 +8,14 @@
 {% block content %}
     <div class="container">
         <div class="logout">
-            <button type="button" class="btn btn-default">Logout</button>
+            <a href="{% url 'logout_user' %}">
+                <button type="button" class="btn btn-default">Logout</button>
+            </a>
+        </div>
+        <div class="logout">
+            <a href="/admin/">
+                <button type="button" class="btn btn-default">Add</button>
+            </a>
         </div>
         <div class="contents">
             <a href="{% url 'input_form' 'Machine' %}">
@@ -19,7 +26,7 @@
                     <p class="optionText">MACHINE</p>
                 </div>
             </a>
-            <a href="">
+            <a href="{% url 'input_form' 'Stationary' %}">
                 <div class="option" style="border: 5px solid #1E1E1E;">
                     <div class="optionImage" style="background-color: #1E1E1E;">
                         <img src="{% static 'StaffWorkspace/img/stationary.png' %}" alt="Stationary">
@@ -27,7 +34,7 @@
                     <p class="optionText">STATIONARY</p>
                 </div>
             </a>
-            <a href="">
+            <a href="{% url 'input_form' 'Others' %}">
                 <div class="option" style="border: 5px solid #033775;">
                     <div class="optionImage" style="background-color: #033775;">
                         <img src="{% static 'StaffWorkspace/img/others.png' %}" alt="Others">

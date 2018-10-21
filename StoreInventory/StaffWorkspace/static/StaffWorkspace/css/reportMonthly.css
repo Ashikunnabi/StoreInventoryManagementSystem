@@ -73,6 +73,10 @@ input::placeholder{
     border-radius: 22px; 
 }
 
+.noSearchFound{
+    height: 400px;
+}
+
 /* This below css's are for printing purpose */
 #printArea{
     display: none;

@@ -1,6 +1,7 @@
 .logout{
     float: right;
     margin-top: 30px;
+    margin-right: 5px;
 }
 .logout button{
     height: 30px;
@@ -13,9 +14,9 @@
     
 }
 .contents{
-    height: 600px;
+    /* height: 600px; */
     padding: 120px;
-    margin-left: 6%;
+    margin-left: 4%;
 }
 .contents a{
     color: black;
@@ -24,9 +25,10 @@
     height: 200px;
     width: 170px;
     text-align: center;
-    display: block;
-    float: left;
+    /* display: block; */
+    /* float: left; */
     margin: 40px;
+    display: inline-block;
 }
 .optionImage{
     height: 150px;

@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.urls import path
 
-from .views import home, input_form, input_form_submit, report, report_daily, report_monthly
+from .views import logout_user, home, input_form, input_form_submit, report, report_daily, report_monthly
 
 urlpatterns = [
+    path('logout', logout_user, name='logout_user'),
     path('', home, name='home'),
     path('input_form/<catagory>', input_form, name='input_form'),
     path('input_form_submit', input_form_submit, name='input_form_submit'),

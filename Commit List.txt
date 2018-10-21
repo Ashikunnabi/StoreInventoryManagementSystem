@@ -45,3 +45,10 @@
 	Print is working properly.
 011:
 	Monthly Report is generating successfully.
+012:
+	Favicon added
+	More input validation
+	All catagory is now workable
+	Logout button working
+	Logout view function added
+	Add button added to direct edit by admin / staff as premission

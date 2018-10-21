@@ -8,7 +8,9 @@
 {% block content %}
     <div class="container">
         <div class="logout">
-            <button type="button" class="btn btn-default">Logout</button>
+            <a href="{% url 'logout_user' %}">
+                <button type="button" class="btn btn-default">Logout</button>
+            </a>
         </div>
         <div class="contents">
             <div class="row buttonAll">

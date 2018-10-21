@@ -1,3 +1,4 @@
+from django.contrib.auth import login, logout
 from datetime import datetime, date
 from django.shortcuts import render, redirect
 from .forms import WorkerInputForm
@@ -5,6 +6,9 @@ from .models import Report
 
 from AdminWorkspace.models import Catagory, Item, StockLocation, Vendor
 
+def logout_user(request):
+    logout(request)
+    return redirect('home')    
 
 def home(request):
     """        General view for all user.    """
@@ -105,15 +109,21 @@ def report_daily(request, value=None):
         item_no = request.POST.get('itemNo')
         report = Report.objects.filter(item_no=item_no)
     elif value4 is not None:
-        item_name = request.POST.get('itemName') 
-        item_name = Item.objects.get(name =item_name) 
-        report = Report.objects.filter(item_name=item_name.id)
+        try:
+            item_name = request.POST.get('itemName') 
+            item_name = Item.objects.get(name =item_name) 
+            report = Report.objects.filter(item_name=item_name.id)
+        except:
+            report = None
     elif value5 is not None:
-        vendor = request.POST.get('vendor')
-        vendor = Vendor.objects.get(name=vendor) 
-        report = Report.objects.filter(vendor=vendor)
+        try:
+            vendor = request.POST.get('vendor')
+            vendor = Vendor.objects.get(name=vendor) 
+            report = Report.objects.filter(vendor=vendor)
+        except:
+            report = None
     else:
-        report = Report.objects.filter(date__year=datetime.now().year, date__month=datetime.now().month)
+        report = Report.objects.filter(date__year=datetime.now().year, date__month=datetime.now().month) # Only current months report
     
     # Sending all needed values to webpage via context
     context = {
