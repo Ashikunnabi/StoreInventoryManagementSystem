@@ -1,0 +1,39 @@
+.contents{
+    height: 540px;
+    padding-top: 70px;
+    margin: 0 5px;
+    text-align: center;
+}
+.contents a{
+    color: black;
+}
+.contents h3{
+    color: #ff6a00;
+}
+.form{
+    display: block;
+    margin-top: 60px;
+}
+.formRow{
+    padding: 10px;
+}
+.formRow input{
+    text-align: center;
+    border-radius: 5em;
+    height: 40px;
+    border: 1px solid gray;
+}
+.formRow input:focus{
+    outline: none;
+    border: 1px solid #ff6a00;
+}
+.errorMessage{
+    color: red;
+    font-size: 12px;
+}
+.submitButton{
+    border: 1px solid #ff6a00 !important;
+    background-color: #ff6a00;
+    color: wheat;
+    font-weight: bold;
+}

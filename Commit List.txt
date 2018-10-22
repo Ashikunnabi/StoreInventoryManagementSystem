@@ -52,3 +52,5 @@
 	Logout button working
 	Logout view function added
 	Add button added to direct edit by admin / staff as premission
+013:
+	User authentication added

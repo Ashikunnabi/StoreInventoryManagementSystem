@@ -1,4 +1,4 @@
-from django.contrib.auth import login, logout
+from django.contrib.auth import authenticate, login, logout
 from datetime import datetime, date
 from django.shortcuts import render, redirect
 from .forms import WorkerInputForm
@@ -6,13 +6,35 @@ from .models import Report
 
 from AdminWorkspace.models import Catagory, Item, StockLocation, Vendor
 
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            context={
+                "error": "Please put valid username / password."
+            }            
+            return render(request, 'StaffWorkspace/loginPage.html',context)
+    else:
+        if request.user.is_authenticated:            
+            return redirect('../')
+        else:
+            return render(request, 'StaffWorkspace/loginPage.html')      
+
 def logout_user(request):
     logout(request)
     return redirect('home')    
 
 def home(request):
     """        General view for all user.    """
-    return render(request, 'StaffWorkspace/home.html')
+    if not request.user.is_authenticated:
+        return redirect('login_user')
+    else:
+        return render(request, 'StaffWorkspace/home.html')
 
 
 def input_form(request, catagory):
@@ -32,7 +54,11 @@ def input_form(request, catagory):
         "vendors": vendors,
         "stock_locations": stock_locations,
     }
-    return render(request, 'StaffWorkspace/inputForm.html', context)
+    
+    if not request.user.is_authenticated:
+        return render(request, 'StaffWorkspace/loginPage.html')
+    else:
+        return render(request, 'StaffWorkspace/inputForm.html', context)
 
 
 def input_form_submit(request):
@@ -75,11 +101,18 @@ def input_form_submit(request):
         # Previous balance update depending on ending_balance. Table name = Item
         Item.objects.filter(name=item_name).update(balance=ending_balance)     
         
-    return redirect('report')
+    
+    if not request.user.is_authenticated:
+        return render(request, 'StaffWorkspace/loginPage.html')
+    else:
+        return redirect('report')
 
 
 def report(request):
-    return render(request, "StaffWorkspace/report.html")
+    if not request.user.is_authenticated:
+        return render(request, 'StaffWorkspace/loginPage.html')
+    else:
+        return render(request, "StaffWorkspace/report.html")
 
 def report_daily(request, value=None):
     """        Report generation for worker.    """ 
@@ -130,7 +163,11 @@ def report_daily(request, value=None):
         "date": datetime.now(),
         "report": report,
     }
-    return render(request, 'StaffWorkspace/reportDaily.html', context)
+    
+    if not request.user.is_authenticated:
+        return render(request, 'StaffWorkspace/loginPage.html')
+    else:
+        return render(request, 'StaffWorkspace/reportDaily.html', context)
     
     
 def report_monthly(request, value=None):
@@ -186,4 +223,8 @@ def report_monthly(request, value=None):
         "date": datetime.now(),
         "total_changes": total_change,
     }
-    return render(request, 'StaffWorkspace/reportMonthly.html', context)
+    
+    if not request.user.is_authenticated:
+        return render(request, 'StaffWorkspace/loginPage.html')
+    else:
+        return render(request, 'StaffWorkspace/reportMonthly.html', context)

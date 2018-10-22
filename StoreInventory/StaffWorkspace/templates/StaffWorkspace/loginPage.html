@@ -1,0 +1,30 @@
+{% extends "StaffWorkspace/base.html" %}
+{% load static %}
+
+{% block extraCSS %}
+    <link rel="stylesheet" href="{% static 'StaffWorkspace/css/loginPage.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="contents">
+        <h3>Inventory Management System</h3>
+            <form action="{% url 'login_user' %}" method="post" class="form">   
+                {% csrf_token %}
+                <div class="row offset-md-4 formRow">
+                    <input class="col-md-6" type="text" placeholder="User Name" name="username">
+                </div>                
+                <div class="row offset-md-4 formRow">
+                    <input class="col-md-6" type="password" placeholder="Password" name="password">
+                </div>               
+                {% if error %}
+                    <p class="errorMessage">{{ error }}</p>
+                {% endif %}
+                <div class="row offset-md-4 formRow">
+                    <input class="col-md-6 submitButton" type="submit" value="Login">
+                </div>
+                
+            </form>
+        </div> 
+    </div>
+{% endblock %}
