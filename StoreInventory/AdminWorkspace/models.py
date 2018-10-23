@@ -10,8 +10,8 @@ class Catagory(models.Model):
     
     
 class Item(models.Model):
-    item_no = models.IntegerField()
     name = models.CharField(max_length=20)
+    item_no = models.IntegerField()
     balance = models.IntegerField()
     cost_per_unit = models.FloatField()
     safety_stock_limit = models.IntegerField()

@@ -92,6 +92,12 @@
                     document.getElementById("previous_balance").value = "{{ item.balance }}";
                     document.getElementById("id_cost_per_unit").value = "{{ item.cost_per_unit }}";
                     document.getElementById("safety_stock_limit").value = "{{ item.safety_stock_limit }}";
+                    document.getElementById("id_issued").value = 0;
+                    document.getElementById("id_purchase").value = 0;
+                    document.getElementById("id_ending_balance").value = 0;
+                        document.getElementById("id_ending_balance").style.backgroundColor = "white"; // border color
+                    document.getElementById("id_ending_balance").style.borderColor = "#ced4da"; // border color when input value is proper
+                        document.getElementById("ending_balance_comment").innerHTML =""
                     console.log("{{ item.balance }}"); // Testing on browser
                 }
             {% endfor %}
@@ -99,10 +105,10 @@
         
         // Calculation for input filed so that auto ending_balance can show depending on issued item and purchase item.
         function issuedItem(){
-            if (parseInt(document.getElementById("id_issued").value) <= parseInt(document.getElementById("previous_balance").value)){
+            if (parseInt(document.getElementById("id_issued").value) <= (parseInt(document.getElementById("previous_balance").value) + parseInt(document.getElementById("id_purchase").value))){
                     document.getElementById("id_ending_balance").style.borderColor = "#ced4da"; // border color when input value is proper
                     document.getElementById("submit").disabled = false;         // If input is ok then you can submit
-                        document.getElementById("ending_balance_comment").innerHTML =""
+                    document.getElementById("ending_balance_comment").innerHTML =""
                     var ending_balance = parseInt(document.getElementById("previous_balance").value) + parseInt(document.getElementById("id_purchase").value) -  parseInt(document.getElementById("id_issued").value);
                     document.getElementById("id_ending_balance").value = ending_balance;
                     console.log(ending_balance);
@@ -125,6 +131,7 @@
         }
         
         function purchaseItem(){
+            issuedItem();
             var ending_balance = parseInt(document.getElementById("previous_balance").value) + parseInt(document.getElementById("id_purchase").value) -  parseInt(document.getElementById("id_issued").value);
             document.getElementById("id_ending_balance").value = ending_balance;
             console.log(ending_balance);

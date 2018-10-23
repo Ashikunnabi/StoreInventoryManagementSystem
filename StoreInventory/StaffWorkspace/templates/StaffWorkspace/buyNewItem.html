@@ -1,0 +1,81 @@
+{% extends "StaffWorkspace/base.html" %}
+{% load static %}
+
+{% block extraCSS %}
+    <link rel="stylesheet" href="{% static 'StaffWorkspace/css/reportMonthly.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="logout_report">
+        <a href="{% url 'logout_user' %}">
+            <button type="button" class="btn btn-default">Logout</button>
+        </a>
+    </div>
+    <h3 class="report">{{ date }}</h3>
+
+    <div class="container-fluid">
+        <table class="tableEdit">
+            <tr>           
+                <th>Item No.</th>             
+                <th>Item Name</th> 
+                <th>Ending Balance</th>
+            </tr>
+            
+            {% for item in items %}
+                {% if item.safety_stock_limit >= item.balance %}
+                <tr>             
+                    <td>{{ item.item_no }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.balance }}</td>
+                </tr>                
+                {% endif %}
+            {% empty %}
+                <tr>
+                <td class="noSearchFound" colspan="7">No search found.</td>
+                </tr>
+            {% endfor %}
+            
+        </table>
+		<div class="printButton">
+			<button onclick="printReport()">Print</button>
+		</div>
+    </div> 
+    <script>
+    function printReport(){
+        var full_page = document.body.innerHTML;
+        var content = document.getElementById("printArea").innerHTML;        
+        document.body.innerHTML = content;
+        window.print();
+        document.body.innerHTML = full_page;
+    }
+    </script>
+
+    <!-- Below codes are for print report -->
+<div id="printArea">
+        <div class="printAreaheader">
+            <img src="{% static 'StaffWorkspace/img/logo.png' %}" alt="Mas Trade International LTD. Logo">
+        </div>
+        <hr/>
+        <h3 class="printAreareport">Report of &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</h3>
+        
+        <div class="container-fluid" >    
+            <table id="printAreatableEdit">
+                <tr id="printAreatr">
+                    <th id="printAreath">Item No.</th>
+                    <th id="printAreath">Item Name</th>
+                    <th id="printAreath">Ending Balance</th>
+                </tr>
+                {% for item in items %}  
+                    {% if item.safety_stock_limit >= item.balance %}
+                    <tr id="printAreatr">              
+                        <td id="printAreatd">{{ item.item_no }}</td>                                      
+                        <td id="printAreatd">{{ item.name }}</td>                                      
+                        <td id="printAreatd">{{ item.balance }}</td>                                      
+                    </tr>
+                    {% endif %}  
+                {% endfor %}
+            </table>
+        </div>
+    </div>    
+
+{% endblock %}

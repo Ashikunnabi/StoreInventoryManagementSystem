@@ -4,6 +4,11 @@
     height: 95px;
     border-bottom: 5px solid #2303EF;
     box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3); 
+    text-align: center;
+}
+.header img{
+    width: 777px;
+    height: 88px;
 }
 
 .logout{
@@ -21,7 +26,6 @@
     
 }
 .contents{
-    height: 540px;
     padding: 120px;
     margin-left: 6%;
 }

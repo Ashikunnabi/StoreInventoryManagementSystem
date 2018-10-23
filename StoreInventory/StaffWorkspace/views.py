@@ -228,3 +228,11 @@ def report_monthly(request, value=None):
         return render(request, 'StaffWorkspace/loginPage.html')
     else:
         return render(request, 'StaffWorkspace/reportMonthly.html', context)
+    
+def buy_new_item(request):
+    items = Item.objects.all()
+    context={
+        'items': items,
+    }
+
+    return render(request, 'StaffWorkspace/buyNewItem.html', context)

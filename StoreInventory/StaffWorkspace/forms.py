@@ -17,17 +17,17 @@ class WorkerInputForm(forms.Form):
     purchase = forms.FloatField(
         required=False,initial=0, min_value=0,
         widget=forms.NumberInput(
-            attrs={'class': 'form-control col-md-8', 'onkeyup': 'purchaseItem()'}
+            attrs={'class': 'form-control col-md-8', 'onchange': 'purchaseItem()', 'onkeyup': 'purchaseItem()'}
         )
     )
     issued = forms.IntegerField(
         required=False,initial=0, min_value=0,
         widget=forms.NumberInput(
-            attrs={'class': 'form-control col-md-8', 'onkeyup': 'issuedItem()'}
+            attrs={'class': 'form-control col-md-8', 'onchange': 'issuedItem()', 'onkeyup': 'issuedItem()'}
         )
     ) 
     ending_balance = forms.FloatField(
-        required=False,initial=0, min_value=0,
+        initial=0, min_value=0,
         widget=forms.NumberInput(
             attrs={'class': 'form-control col-md-8', 'readonly':'readonly'}
         )
