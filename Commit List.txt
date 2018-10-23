@@ -54,3 +54,6 @@
 	Add button added to direct edit by admin / staff as premission
 013:
 	User authentication added
+014:
+	Input validation updated
+	Buy new item option added in report
