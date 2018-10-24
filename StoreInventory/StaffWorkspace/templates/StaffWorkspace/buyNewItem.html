@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extraCSS %}
-    <link rel="stylesheet" href="{% static 'StaffWorkspace/css/reportMonthly.css' %}">
+    <link rel="stylesheet" href="{% static 'StaffWorkspace/css/buyNewItem.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -14,6 +14,7 @@
     <h3 class="report">{{ date }}</h3>
 
     <div class="container-fluid">
+            <h4 class="report">Buy New Item</h4>
         <table class="tableEdit">
             <tr>           
                 <th>Item No.</th>             
@@ -58,7 +59,7 @@
         <hr/>
         <h3 class="printAreareport">Report of &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</h3>
         
-        <div class="container-fluid" >    
+        <div class="container-fluid" >
             <table id="printAreatableEdit">
                 <tr id="printAreatr">
                     <th id="printAreath">Item No.</th>

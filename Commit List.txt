@@ -57,3 +57,6 @@
 014:
 	Input validation updated
 	Buy new item option added in report
+015: 
+	Monthly report bug fixed
+	
