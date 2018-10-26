@@ -7,14 +7,15 @@ from .models import Report
 from AdminWorkspace.models import Catagory, Item, StockLocation, Vendor
 
 def login_user(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
+    """     Login      """
+    if request.method == "POST":                        # If method=POST then request is valid otherwise not
+        username = request.POST['username']             # Collecting username
+        password = request.POST['password']             # Collecting password
+        user = authenticate(username=username, password=password) # If user is valid then authenticte otherwise not
         if user is not None:
-            login(request, user)
+            login(request, user)                        # If valid user then login
             return redirect('home')
-        else:
+        else:                                           # If username / password is wrong
             context={
                 "error": "Please put valid username / password."
             }            
@@ -25,10 +26,13 @@ def login_user(request):
         else:
             return render(request, 'StaffWorkspace/loginPage.html')      
 
+            
 def logout_user(request):
-    logout(request)
-    return redirect('home')    
+    """     Logout      """
+    logout(request)                                 # Logout - all session and permission will be invalid
+    return redirect('login_user')    
 
+    
 def home(request):
     """        General view for all user.    """
     if not request.user.is_authenticated:
@@ -99,8 +103,7 @@ def input_form_submit(request):
         report_save.save()
         
         # Previous balance update depending on ending_balance. Table name = Item
-        Item.objects.filter(name=item_name).update(balance=ending_balance)     
-        
+        Item.objects.filter(name=item_name).update(balance=ending_balance, cost_per_unit=cost_per_unit)
     
     if not request.user.is_authenticated:
         return render(request, 'StaffWorkspace/loginPage.html')
@@ -109,6 +112,7 @@ def input_form_submit(request):
 
 
 def report(request):
+    """     Report page of wathing diffrent types of report     """
     if not request.user.is_authenticated:
         return render(request, 'StaffWorkspace/loginPage.html')
     else:
@@ -130,7 +134,7 @@ def report_daily(request, value=None):
     print(value4)
     print(datetime.now())
     """
-    
+    # If user request for specific type of data to see report
     if value1 is not None:
         date = request.POST.get('date')
         report = Report.objects.filter(date = date)
@@ -155,7 +159,7 @@ def report_daily(request, value=None):
             report = Report.objects.filter(vendor=vendor)
         except:
             report = None
-    else:
+    else:                                                               # Otherwise default data will be shown
         report = Report.objects.filter(date__year=datetime.now().year, date__month=datetime.now().month) # Only current months report
     
     # Sending all needed values to webpage via context
@@ -188,22 +192,23 @@ def report_monthly(request, value=None):
         item_all = Item.objects.all()                                       # All items
         reports = Report.objects.filter(date__year=year, date__month=month)  # Requesting for given month
         
+        # Making a set of reported item list of searched month
         for r in reports:
             r_string = str(r.item_name)
             report_item_in_this_month.add(r_string) 
-        print(report_item_in_this_month)
             
-        for item_detail in item_all:                                              
-            for report in reports:                
-                if str(item_detail.name) == str(report.item_name):               # If there is any report on that month then continue  
+        for item_detail in item_all:                                            # All items                                        
+            for report in reports:                                              # Reort of searched month
+                if str(item_detail.name) == str(report.item_name):              # If there is any report on that month then continue 
                     previous_balance = Report.objects.filter(date__year=year, date__month=month, item_name=item_detail.id).first().previous_balance
                     purchase_item = purchase_item + report.purchase
                     issued_item = issued_item + report.issued
                     
             ending_balance = previous_balance + purchase_item - issued_item     # Ending balance calculation
                     
-            if str(item_detail.name) not in report_item_in_this_month:          # Otherwise put last transition from any month
-                report_not_in_this_month = Report.objects.filter(item_name=item_detail.id).last()
+            if str(item_detail.name) not in report_item_in_this_month:          # Otherwise put last transition from last month
+                report_not_in_this_month = Report.objects.filter(date__range=[datetime(2000,1,1), datetime(int(year), int(month)-1, 30)], 
+                                                                    item_name=item_detail.id).last()
                 try:                                                            # If there is any transition then continue        
                     previous_balance = report_not_in_this_month.ending_balance
                     ending_balance = report_not_in_this_month.ending_balance
@@ -238,9 +243,13 @@ def report_monthly(request, value=None):
         return render(request, 'StaffWorkspace/reportMonthly.html', context)
     
 def buy_new_item(request):
+    """     If any item needs to buy it will generate that item list    """
     items = Item.objects.all()
     context={
         'items': items,
     }
 
-    return render(request, 'StaffWorkspace/buyNewItem.html', context)
+    if not request.user.is_authenticated:
+        return render(request, 'StaffWorkspace/loginPage.html')
+    else:
+        return render(request, 'StaffWorkspace/buyNewItem.html', context)

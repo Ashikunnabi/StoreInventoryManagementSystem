@@ -59,4 +59,6 @@
 	Buy new item option added in report
 015: 
 	Monthly report bug fixed
+016:
+	Design Responsive
 	

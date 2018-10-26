@@ -15,8 +15,8 @@
 }
 .contents{
     /* height: 600px; */
-    padding: 120px;
-    margin-left: 4%;
+    padding: 120px 0px;
+    text-align: center;
 }
 .contents a{
     color: black;
