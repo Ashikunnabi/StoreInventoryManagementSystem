@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.urls import path
 
-from .views import login_user, logout_user, home, input_form, input_form_submit, report, report_daily, report_monthly, buy_new_item
+from .views import login_user, logout_user, home, input_form, input_form_submit, report, report_daily, report_monthly, buy_new_item, graph
 
 urlpatterns = [
     path('login', login_user, name='login_user'),
@@ -29,4 +29,5 @@ urlpatterns = [
     path('report_monthly', report_monthly, name='report_monthly'),
     path('report_monthly/<value>', report_monthly, name='report_monthly_search'),
     path('buy_new_item', buy_new_item, name='buy_new_item'),
+    path('graph', graph, name='graph'),
 ]

@@ -1,0 +1,29 @@
+.logout_report{
+    float: right;
+    margin-top: 25px;
+    padding: 5px;
+}
+.logout_report button{
+    height: 30px;
+    width: 105px;
+    padding: 0;
+    color: #2303EF;
+    background-color: white;
+    border: 1px solid #2303EF;
+    border-radius: 22px;    
+}
+.report{
+    margin: 30px 0px;
+    margin-left: 150px;
+    text-align: center;
+}
+
+.graph{
+    display: block;
+    width: 960px;
+    height: 400px;
+    margin: 50px auto;
+    margin-bottom: 140px; 
+}
+
+

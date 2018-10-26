@@ -61,4 +61,5 @@
 	Monthly report bug fixed
 016:
 	Design Responsive
-	
+017:
+	Graphical Representation added

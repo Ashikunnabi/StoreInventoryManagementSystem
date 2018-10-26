@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+import calendar
 from datetime import datetime, date
 from django.shortcuts import render, redirect
 from .forms import WorkerInputForm
@@ -207,7 +208,8 @@ def report_monthly(request, value=None):
             ending_balance = previous_balance + purchase_item - issued_item     # Ending balance calculation
                     
             if str(item_detail.name) not in report_item_in_this_month:          # Otherwise put last transition from last month
-                report_not_in_this_month = Report.objects.filter(date__range=[datetime(2000,1,1), datetime(int(year), int(month)-1, 30)], 
+                days_in_month = calendar.monthrange(int(year), int(month)-1)[1] # Getting how many days in one month
+                report_not_in_this_month = Report.objects.filter(date__range=[datetime(2000,1,1), datetime(int(year), int(month)-1, days_in_month)], 
                                                                     item_name=item_detail.id).last()
                 try:                                                            # If there is any transition then continue        
                     previous_balance = report_not_in_this_month.ending_balance
@@ -241,6 +243,8 @@ def report_monthly(request, value=None):
         return render(request, 'StaffWorkspace/loginPage.html')
     else:
         return render(request, 'StaffWorkspace/reportMonthly.html', context)
+ 
+ 
     
 def buy_new_item(request):
     """     If any item needs to buy it will generate that item list    """
@@ -253,3 +257,20 @@ def buy_new_item(request):
         return render(request, 'StaffWorkspace/loginPage.html')
     else:
         return render(request, 'StaffWorkspace/buyNewItem.html', context)
+        
+    
+def graph(request):
+    """     If any item needs to buy it will generate that item list    """
+    items_balance = Item.objects.all()
+    reports = Report.objects.filter(date__year=datetime.now().year, date__month=datetime.now().month) # Only current months report
+    
+    
+    context={
+        'items_balance': items_balance,
+        'reports': reports,
+    }
+
+    if not request.user.is_authenticated:
+        return render(request, 'StaffWorkspace/loginPage.html')
+    else:
+        return render(request, 'StaffWorkspace/graph.html', context)
