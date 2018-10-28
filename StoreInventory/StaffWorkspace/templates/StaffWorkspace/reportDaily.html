@@ -13,7 +13,20 @@
     </div>
     <h3 class="report">{{ date }}</h3>
 
-    <div class="container-fluid">    
+    <div class="container-fluid">  
+        <div class="catagory">
+            <form action="{% url 'report_daily_search' 'catagory' %}" method="POST">
+                {% csrf_token %}           
+                    <select class="date_month" name="catagory">
+                        <option selected hidden>Select catagory</option>
+                        <option value="All">All</option>
+                        {% for catagory in catagories %}
+                            <option value="{{ catagory.name }}">{{ catagory.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" style="">
+            </form>  
+        </div>  
         <table class="tableEdit">
             <tr>
                 <th>Sl No.</th>
@@ -29,11 +42,13 @@
                         <input type="submit"style=" display: none">
                     </form>
                 </th> 
-                <form action="{% url 'report_daily_search' 'itemNo' %}" method="POST">
-                {% csrf_token %}           
-                    <th><input type="text" placeholder="Item No." size="6" name="itemNo"></th>
-                    <input type="submit"style=" display: none">
-                </form>
+                <th>                
+                    <form action="{% url 'report_daily_search' 'itemNo' %}" method="POST">
+                    {% csrf_token %}           
+                        <input type="text" placeholder="Item No." size="6" name="itemNo">
+                        <input type="submit"style=" display: none">
+                    </form>
+                </th>
                 <form action="{% url 'report_daily_search' 'itemName' %}" method="POST">
                 {% csrf_token %}
                     <th><input type="text" placeholder="Item Name" size="10" name="itemName"></th>

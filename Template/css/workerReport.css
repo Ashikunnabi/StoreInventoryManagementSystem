@@ -4,6 +4,11 @@
     height: 95px;
     border-bottom: 5px solid #2303EF;
     box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3); 
+    text-align: center;
+}
+.header img{
+    width: 777px;
+    height: 88px;
 }
 .report{
     margin: 10px 0px;
@@ -43,6 +48,19 @@ input::placeholder{
     color: white;
 }
 
+.buttons{
+    text-align: center;
+}
+.print{	
+    height: 40px;
+    width: 155px;
+    padding: 0;
+    color: white;
+    background-color: #2303EF;
+    border-radius: 22px;
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.3); 
+	margin: 20px 0px;    
+}
 .footer{
     width: 100%;
     height: 40px;

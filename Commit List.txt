@@ -63,3 +63,6 @@
 	Design Responsive
 017:
 	Graphical Representation added
+018:
+	Fixed no javascript issu
+	Catagory wise search added in daily report

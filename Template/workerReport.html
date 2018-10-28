@@ -10,13 +10,13 @@
   <script src="js/workerReport.js"></script>
 </head>
 <body>
-    <div class="header">
+    <div class="header" id="header">
         <image src="img/logo.png" alt="Mas Trade International LTD. Logo">        
     </div>
     
-    <h3 class="report">Report of August 2018</h3>
+    <h3 class="report" id="report">Report of August 2018</h3>
     
-    <div class="container-fluid">    
+    <div id="printElement" class="container-fluid" >    
         <table class="tableEdit">
             <tr>
                 <th>Sl No.</th>
@@ -218,10 +218,15 @@
             </tr>
         </table>
     </div>
+	<div class="buttons">
+		<button class="print" onclick="printReport()">Print</button>
+	<div>
     
     <div class="footer">
         <p>Developed By: Quard Core, IUBAT University</p>  
     </div>
+    
+
 
 </body>
 </html>

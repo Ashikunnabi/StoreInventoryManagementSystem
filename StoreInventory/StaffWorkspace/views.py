@@ -83,28 +83,34 @@ def input_form_submit(request):
         added_by = request.user.username                    # Getting the information of loged in user        
         # print(item_name, item_no, vendor, stock_location, cost_per_unit, previous_balance, issued, issued_to, ending_balance, comments)
         
-        # Collecting the information of a full row/object from diffrent model/table.
-        item_detail = Item.objects.get(name=item_name)
-        vendor_detail = Vendor.objects.get(name=vendor)
-        stock_detail = StockLocation.objects.get(name=stock_location)
-        
-        # Making a query to Report table to save data.
-        report_save = Report( item_name = Item.objects.get(pk=item_detail.id), 
-                    item_no = item_detail.item_no, 
-                    vendor=Vendor.objects.get(pk=vendor_detail.id), 
-                    stock_location=StockLocation.objects.get(pk=stock_detail.id),
-                    cost_per_unit = cost_per_unit,
-                    previous_balance=previous_balance,
-                    purchase =  purchase,
-                    issued =issued,
-                    ending_balance = ending_balance,
-                    issued_to = issued_to,
-                    comments = comments,
-                    added_by = added_by)
-        report_save.save()
-        
-        # Previous balance update depending on ending_balance. Table name = Item
-        Item.objects.filter(name=item_name).update(balance=ending_balance, cost_per_unit=cost_per_unit)
+        if purchase == '0' and issued == '0':
+            error = "Something went wrong. Please reset your browser or enable javascript."            
+            return render(request, 'StaffWorkspace/inputForm.html', {'error': error})
+        else:        
+            # Collecting the information of a full row/object from diffrent model/table.
+            item_detail = Item.objects.get(name=item_name)
+            catagory_detail = Catagory.objects.get(name=item_detail.catagory)
+            vendor_detail = Vendor.objects.get(name=vendor)
+            stock_detail = StockLocation.objects.get(name=stock_location)
+            
+            # Making a query to Report table to save data.
+            report_save = Report( item_name = Item.objects.get(pk=item_detail.id), 
+                        item_no = item_detail.item_no,
+                        catagory = Catagory.objects.get(pk=catagory_detail.id),
+                        vendor=Vendor.objects.get(pk=vendor_detail.id), 
+                        stock_location=StockLocation.objects.get(pk=stock_detail.id),
+                        cost_per_unit = cost_per_unit,
+                        previous_balance=previous_balance,
+                        purchase =  purchase,
+                        issued =issued,
+                        ending_balance = ending_balance,
+                        issued_to = issued_to,
+                        comments = comments,
+                        added_by = added_by)
+            report_save.save()
+            
+            # Previous balance update depending on ending_balance. Table name = Item
+            Item.objects.filter(name=item_name).update(balance=ending_balance, cost_per_unit=cost_per_unit)
     
     if not request.user.is_authenticated:
         return render(request, 'StaffWorkspace/loginPage.html')
@@ -127,12 +133,14 @@ def report_daily(request, value=None):
     value3 = request.POST.get('itemNo')  
     value4 = request.POST.get('itemName')  
     value5 = request.POST.get('vendor')
+    value6 = request.POST.get('catagory')
     """   
     # Testing purpose
     print(value1)
     print(value2)
     print(value3)
     print(value4)
+    print(value6)
     print(datetime.now())
     """
     # If user request for specific type of data to see report
@@ -160,13 +168,26 @@ def report_daily(request, value=None):
             report = Report.objects.filter(vendor=vendor)
         except:
             report = None
+    elif value6 is not None:
+        try:
+            catagory = request.POST.get('catagory')
+            if catagory == "All":
+                report = Report.objects.filter(date__year=datetime.now().year, date__month=datetime.now().month) # Only current months report
+            else:
+                catagory = Catagory.objects.get(name=catagory) 
+                report = Report.objects.filter(catagory = catagory.id)
+        except:
+            report = None
     else:                                                               # Otherwise default data will be shown
         report = Report.objects.filter(date__year=datetime.now().year, date__month=datetime.now().month) # Only current months report
+    
+    catagories = Catagory.objects.all()
     
     # Sending all needed values to webpage via context
     context = {
         "date": datetime.now(),
         "report": report,
+        "catagories": catagories,
     }
     
     if not request.user.is_authenticated:
