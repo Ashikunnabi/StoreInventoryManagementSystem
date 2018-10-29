@@ -15,7 +15,7 @@
 
     <div class="container-fluid">    
         <div class="row month_search">
-            <form action="{% url 'report_monthly_search' 'month' %}" method="POST">
+            <form action="{% url 'report_monthly_search' catagory 'month' %}" method="POST">
                 {% csrf_token %}
                 <span class="col-md-6">Month:</span>
                 <input type="text" class="date_month col-md-6" placeholder="mm/yyyy" name="month" pattern="^1?\d\/\d{4}$">
@@ -25,12 +25,12 @@
         <table class="tableEdit">
             <tr>
                 <th>Sl No.</th>                
-                <form action="{% url 'report_daily_search' 'itemNo' %}" method="POST" novalidate>
+                <form action="{% url 'report_daily_search' catagory 'itemNo' %}" method="POST" novalidate>
                 {% csrf_token %}           
                     <th><input type="text" placeholder="Item No." size="6" name="itemNo"></th>
                     <input type="submit"style=" display: none">
                 </form>
-                <form action="{% url 'report_daily_search' 'itemName' %}" method="POST" novalidate>
+                <form action="{% url 'report_daily_search' catagory 'itemName' %}" method="POST" novalidate>
                 {% csrf_token %}
                     <th><input type="text" placeholder="Item Name" size="10" name="itemName"></th>
                     <input type="submit"style=" display: none">

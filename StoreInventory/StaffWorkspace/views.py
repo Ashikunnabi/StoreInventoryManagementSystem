@@ -44,7 +44,7 @@ def home(request):
 
 def input_form(request, catagory):
     """        Worker can input store related information.    """ 
-
+    _catagory = catagory
     # As Catagory-id is foreign key it will just store it's pk to Item table that's 
     # why we need to search both Catagory and Item table to get proper dynamic filtering.
     catagory = Catagory.objects.get(name=catagory)          # Collecting the name of catagory
@@ -58,6 +58,7 @@ def input_form(request, catagory):
         "items": items,
         "vendors": vendors,
         "stock_locations": stock_locations,
+        "catagory": _catagory,
     }
     
     if not request.user.is_authenticated:
@@ -83,7 +84,7 @@ def input_form_submit(request):
         added_by = request.user.username                    # Getting the information of loged in user        
         # print(item_name, item_no, vendor, stock_location, cost_per_unit, previous_balance, issued, issued_to, ending_balance, comments)
         
-        if purchase == '0' and issued == '0':
+        if purchase == '0' and issued == '0':               # If javascript is not available then this one will arise
             error = "Something went wrong. Please reset your browser or enable javascript."            
             return render(request, 'StaffWorkspace/inputForm.html', {'error': error})
         else:        
@@ -115,17 +116,18 @@ def input_form_submit(request):
     if not request.user.is_authenticated:
         return render(request, 'StaffWorkspace/loginPage.html')
     else:
-        return redirect('report')
+        return redirect('report', catagory=catagory_detail.name)
 
 
-def report(request):
+def report(request, catagory=None):
     """     Report page of wathing diffrent types of report     """
     if not request.user.is_authenticated:
         return render(request, 'StaffWorkspace/loginPage.html')
     else:
-        return render(request, "StaffWorkspace/report.html")
+        return render(request, "StaffWorkspace/report.html", {'catagory':catagory})
 
-def report_daily(request, value=None):
+        
+def report_daily(request, catagory=None, value=None):
     """        Report generation for worker.    """ 
     # Catching post values
     value1 = request.POST.get('date')  
@@ -133,61 +135,82 @@ def report_daily(request, value=None):
     value3 = request.POST.get('itemNo')  
     value4 = request.POST.get('itemName')  
     value5 = request.POST.get('vendor')
-    value6 = request.POST.get('catagory')
-    """   
-    # Testing purpose
-    print(value1)
-    print(value2)
-    print(value3)
-    print(value4)
-    print(value6)
-    print(datetime.now())
-    """
-    # If user request for specific type of data to see report
-    if value1 is not None:
-        date = request.POST.get('date')
-        report = Report.objects.filter(date = date)
-    elif value2 is not None:
-        month = request.POST.get('month')
-        month, year = month.split("/")
-        report = Report.objects.filter(date__year=year, date__month=month)
-    elif value3 is not None:
-        item_no = request.POST.get('itemNo')
-        report = Report.objects.filter(item_no=item_no)
-    elif value4 is not None:
-        try:
-            item_name = request.POST.get('itemName') 
-            item_name = Item.objects.get(name =item_name) 
-            report = Report.objects.filter(item_name=item_name.id)
-        except:
-            report = None
-    elif value5 is not None:
-        try:
-            vendor = request.POST.get('vendor')
-            vendor = Vendor.objects.get(name=vendor) 
-            report = Report.objects.filter(vendor=vendor)
-        except:
-            report = None
-    elif value6 is not None:
-        try:
-            catagory = request.POST.get('catagory')
-            if catagory == "All":
-                report = Report.objects.filter(date__year=datetime.now().year, date__month=datetime.now().month) # Only current months report
-            else:
-                catagory = Catagory.objects.get(name=catagory) 
-                report = Report.objects.filter(catagory = catagory.id)
-        except:
-            report = None
-    else:                                                               # Otherwise default data will be shown
-        report = Report.objects.filter(date__year=datetime.now().year, date__month=datetime.now().month) # Only current months report
     
-    catagories = Catagory.objects.all()
+    # If no catagory is selected
+    if catagory == 'None':
+        # If user request for specific type of data to see report
+        if value1 is not None:
+            date = request.POST.get('date')
+            report = Report.objects.filter(date = date)
+        elif value2 is not None:
+            month = request.POST.get('month')
+            month, year = month.split("/")
+            report = Report.objects.filter(date__year=year, date__month=month)
+        elif value3 is not None:
+            try:
+                item_no = request.POST.get('itemNo')
+                report = Report.objects.filter(item_no=item_no)
+            except:
+                report = None
+        elif value4 is not None:
+            try:
+                item_name = request.POST.get('itemName') 
+                item_name = Item.objects.get(name =item_name) 
+                report = Report.objects.filter(item_name=item_name.id)
+            except:
+                report = None
+        elif value5 is not None:
+            try:
+                vendor = request.POST.get('vendor')
+                vendor = Vendor.objects.get(name=vendor) 
+                report = Report.objects.filter(vendor=vendor)
+            except:
+                report = None
+        else:                                                                # Otherwise default data will be shown
+            report = Report.objects.filter(date__year=datetime.now().year, 
+     
+                                   date__month=datetime.now().month) # Only current months report
+                                   
+    # If catagory is selected                               
+    else:
+        catagory = Catagory.objects.get(name=catagory)
+        # If user request for specific type of data to see report
+        if value1 is not None:
+            date = request.POST.get('date')
+            report = Report.objects.filter(date = date, catagory = catagory.id)
+        elif value2 is not None:
+            month = request.POST.get('month')
+            month, year = month.split("/")
+            report = Report.objects.filter(date__year=year, date__month=month, catagory = catagory.id)
+        elif value3 is not None:
+            try:
+                item_no = request.POST.get('itemNo')
+                report = Report.objects.filter(item_no=item_no, catagory = catagory.id)
+            except:
+                report = None
+        elif value4 is not None:
+            try:
+                item_name = request.POST.get('itemName') 
+                item_name = Item.objects.get(name =item_name) 
+                report = Report.objects.filter(item_name=item_name.id, catagory = catagory.id)
+            except:
+                report = None
+        elif value5 is not None:
+            try:
+                vendor = request.POST.get('vendor')
+                vendor = Vendor.objects.get(name=vendor) 
+                report = Report.objects.filter(vendor=vendor, catagory = catagory.id)
+            except:
+                report = None
+        else:                                                                # Otherwise default data will be shown
+            report = Report.objects.filter(date__year=datetime.now().year, 
+                                        date__month=datetime.now().month, catagory = catagory.id) # Only current months report
     
     # Sending all needed values to webpage via context
     context = {
         "date": datetime.now(),
         "report": report,
-        "catagories": catagories,
+        "catagory": catagory,
     }
     
     if not request.user.is_authenticated:
@@ -196,7 +219,7 @@ def report_daily(request, value=None):
         return render(request, 'StaffWorkspace/reportDaily.html', context)
     
     
-def report_monthly(request, value=None):
+def report_monthly(request, catagory=None, value=None):
     """     Monthly report generation item wise     """
     # Pre defined values default = 0
     purchase_item = 0
@@ -208,56 +231,107 @@ def report_monthly(request, value=None):
     report_item_in_this_month=set() 
     
     # If sender sends value of month then this comparison will start working
-    if value1 is not None:
-        month = request.POST.get('month')
-        month, year = month.split("/")                                      # Dividing 10/2018 into month=10, year=2018
-        item_all = Item.objects.all()                                       # All items
-        reports = Report.objects.filter(date__year=year, date__month=month)  # Requesting for given month
-        
-        # Making a set of reported item list of searched month
-        for r in reports:
-            r_string = str(r.item_name)
-            report_item_in_this_month.add(r_string) 
+    if catagory == 'None':
+        if value1 is not None:
+            month = request.POST.get('month')
+            month, year = month.split("/")                                      # Dividing 10/2018 into month=10, year=2018
+            item_all = Item.objects.all()                                       # All items
+            reports = Report.objects.filter(date__year=year, date__month=month)  # Requesting for given month
             
-        for item_detail in item_all:                                            # All items                                        
-            for report in reports:                                              # Reort of searched month
-                if str(item_detail.name) == str(report.item_name):              # If there is any report on that month then continue 
-                    previous_balance = Report.objects.filter(date__year=year, date__month=month, item_name=item_detail.id).first().previous_balance
-                    purchase_item = purchase_item + report.purchase
-                    issued_item = issued_item + report.issued
-                    
-            ending_balance = previous_balance + purchase_item - issued_item     # Ending balance calculation
-                    
-            if str(item_detail.name) not in report_item_in_this_month:          # Otherwise put last transition from last month
-                days_in_month = calendar.monthrange(int(year), int(month)-1)[1] # Getting how many days in one month
-                report_not_in_this_month = Report.objects.filter(date__range=[datetime(2000,1,1), datetime(int(year), int(month)-1, days_in_month)], 
-                                                                    item_name=item_detail.id).last()
-                try:                                                            # If there is any transition then continue        
-                    previous_balance = report_not_in_this_month.ending_balance
-                    ending_balance = report_not_in_this_month.ending_balance
-                except:                                                         # Otherwise show except state
-                    previous_balance = 0
-                    ending_balance = 0
-                    
-            # All changes stored in total_change list to supply in template
-            total_change.append([item_detail.item_no, item_detail.name, previous_balance, purchase_item, issued_item, ending_balance]) 
-            """
-            # Testing purpose
-            print(item_detail.name, "=", total_change)
-            print(item_detail.name, "=", purchase_item)
-            print(item_detail.name, "=", issued_item)
-            """
-            # Reset default values
-            purchase_item = 0
-            issued_item = 0
-            previous_balance = 0
-            ending_balance = 0
+            # Making a set of reported item list of searched month
+            for r in reports:
+                r_string = str(r.item_name)
+                report_item_in_this_month.add(r_string) 
+                
+            for item_detail in item_all:                                            # All items                                        
+                for report in reports:                                              # Reort of searched month
+                    if str(item_detail.name) == str(report.item_name):              # If there is any report on that month then continue 
+                        previous_balance = Report.objects.filter(date__year=year, date__month=month, item_name=item_detail.id).first().previous_balance
+                        purchase_item = purchase_item + report.purchase
+                        issued_item = issued_item + report.issued
+                        
+                ending_balance = previous_balance + purchase_item - issued_item     # Ending balance calculation
+                        
+                if str(item_detail.name) not in report_item_in_this_month:          # Otherwise put last transition from last month
+                    days_in_month = calendar.monthrange(int(year), int(month)-1)[1] # Getting how many days in one month
+                    report_not_in_this_month = Report.objects.filter(date__range=[datetime(2000,1,1), datetime(int(year), int(month)-1, days_in_month)], 
+                                                                        item_name=item_detail.id).last()
+                    try:                                                            # If there is any transition then continue        
+                        previous_balance = report_not_in_this_month.ending_balance
+                        ending_balance = report_not_in_this_month.ending_balance
+                    except:                                                         # Otherwise show except state
+                        previous_balance = 0
+                        ending_balance = 0
+                        
+                # All changes stored in total_change list to supply in template
+                total_change.append([item_detail.item_no, item_detail.name, previous_balance, purchase_item, issued_item, ending_balance]) 
+                """
+                # Testing purpose
+                print(item_detail.name, "=", total_change)
+                print(item_detail.name, "=", purchase_item)
+                print(item_detail.name, "=", issued_item)
+                """
+                # Reset default values
+                purchase_item = 0
+                issued_item = 0
+                previous_balance = 0
+                ending_balance = 0
+        else:
+            pass
+            
     else:
-        pass
+        catagory = Catagory.objects.get(name=catagory)
+        if value1 is not None:
+            month = request.POST.get('month')
+            month, year = month.split("/")                                      # Dividing 10/2018 into month=10, year=2018
+            item_all = Item.objects.filter(catagory = catagory.id)                                       # All items
+            reports = Report.objects.filter(date__year=year, date__month=month, catagory = catagory.id)  # Requesting for given month
+            
+            # Making a set of reported item list of searched month
+            for r in reports:
+                r_string = str(r.item_name)
+                report_item_in_this_month.add(r_string) 
+                
+            for item_detail in item_all:                                            # All items                                        
+                for report in reports:                                              # Reort of searched month
+                    if str(item_detail.name) == str(report.item_name):              # If there is any report on that month then continue 
+                        previous_balance = Report.objects.filter(date__year=year, date__month=month, item_name=item_detail.id).first().previous_balance
+                        purchase_item = purchase_item + report.purchase
+                        issued_item = issued_item + report.issued
+                        
+                ending_balance = previous_balance + purchase_item - issued_item     # Ending balance calculation
+                        
+                if str(item_detail.name) not in report_item_in_this_month:          # Otherwise put last transition from last month
+                    days_in_month = calendar.monthrange(int(year), int(month)-1)[1] # Getting how many days in one month
+                    report_not_in_this_month = Report.objects.filter(date__range=[datetime(2000,1,1), datetime(int(year), int(month)-1, days_in_month)], 
+                                                                        item_name=item_detail.id).last()
+                    try:                                                            # If there is any transition then continue        
+                        previous_balance = report_not_in_this_month.ending_balance
+                        ending_balance = report_not_in_this_month.ending_balance
+                    except:                                                         # Otherwise show except state
+                        previous_balance = 0
+                        ending_balance = 0
+                        
+                # All changes stored in total_change list to supply in template
+                total_change.append([item_detail.item_no, item_detail.name, previous_balance, purchase_item, issued_item, ending_balance]) 
+                """
+                # Testing purpose
+                print(item_detail.name, "=", total_change)
+                print(item_detail.name, "=", purchase_item)
+                print(item_detail.name, "=", issued_item)
+                """
+                # Reset default values
+                purchase_item = 0
+                issued_item = 0
+                previous_balance = 0
+                ending_balance = 0
+        else:
+            pass
         
     context = {
         "date": 'Monthly Report',
         "total_changes": total_change,
+        "catagory": catagory,
     }
     
     if not request.user.is_authenticated:
@@ -283,9 +357,7 @@ def buy_new_item(request):
 def graph(request):
     """     If any item needs to buy it will generate that item list    """
     items_balance = Item.objects.all()
-    reports = Report.objects.filter(date__year=datetime.now().year, date__month=datetime.now().month) # Only current months report
-    
-    
+    reports = Report.objects.filter(date__year=datetime.now().year, date__month=datetime.now().month) # Only current months report    
     context={
         'items_balance': items_balance,
         'reports': reports,

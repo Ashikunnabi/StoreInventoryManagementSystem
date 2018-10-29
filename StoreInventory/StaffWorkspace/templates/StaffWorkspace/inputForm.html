@@ -13,7 +13,7 @@
             </a>
         </div>
         <div class="logout_report">
-            <a href="{% url 'report' %}"><button type="button" class="btn btn-default">Report</button></a>
+            <a href="{% url 'report' catagory %}"><button type="button" class="btn btn-default">Report</button></a>
         </div>
         
         <div class="formDesign">
@@ -75,6 +75,9 @@
                 <div class="form-group row">
                     <span class="col-md-4">Comments:</span>
                     {{ form.comments }}
+                </div>
+                <div >
+                    <input value="{{ catagory }}" name="catagory" hidden>
                 </div>
                 <br/>
                 <div class="submitDesign">

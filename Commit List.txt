@@ -66,3 +66,5 @@
 018:
 	Fixed no javascript issu
 	Catagory wise search added in daily report
+019:
+	Catagory will be auto selected to generate individual report for catagory
