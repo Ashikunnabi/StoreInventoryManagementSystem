@@ -17,7 +17,7 @@
         </div>
         
         <div class="formDesign">
-            <form class="form" action="{% url 'input_form_submit'%}" method="post">
+            <form class="form" action="{% url 'input_form_submit' catagory %}" method="post">
             {% csrf_token %}
                 <div class="form-group row">
                     <span class="col-md-4">Item Name:</span>
@@ -81,7 +81,7 @@
                 </div>
                 <br/>
                 <div class="submitDesign">
-                    <button type="submit" class="btn btn-default submitButton" id="submit" onclick="submitValidation()">Submit</button>                    
+                    <button type="submit" class="btn btn-default submitButton" id="submit" onclick="submitValidation()" {{noJavaScript}}>Submit</button>                    
                     <p id="ending_balance_comment"><br>{{ error }}</p>
                 </div>
             </form>

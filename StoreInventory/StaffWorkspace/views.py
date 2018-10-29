@@ -67,7 +67,7 @@ def input_form(request, catagory):
         return render(request, 'StaffWorkspace/inputForm.html', context)
 
 
-def input_form_submit(request):
+def input_form_submit(request, catagory):
     """ When form is submitted it will check and validate as wll as save data. """
     if request.method == "POST":                            # Checking the submit form request is post or not
         # If your request is post then only this conditon will run otherwise not.
@@ -84,9 +84,14 @@ def input_form_submit(request):
         added_by = request.user.username                    # Getting the information of loged in user        
         # print(item_name, item_no, vendor, stock_location, cost_per_unit, previous_balance, issued, issued_to, ending_balance, comments)
         
-        if purchase == '0' and issued == '0':               # If javascript is not available then this one will arise
-            error = "Something went wrong. Please reset your browser or enable javascript."            
-            return render(request, 'StaffWorkspace/inputForm.html', {'error': error})
+        if purchase == '0' and issued == '0':               # If javascript is not available then this one will arise  
+            error = "Something went wrong. Please reset your browser or enable javascript."
+            context = {
+                "error": error,
+                "catagory": catagory,
+                "noJavaScript": "disabled",
+            }
+            return render(request, 'StaffWorkspace/inputForm.html', context)
         else:        
             # Collecting the information of a full row/object from diffrent model/table.
             item_detail = Item.objects.get(name=item_name)
@@ -167,8 +172,7 @@ def report_daily(request, catagory=None, value=None):
             except:
                 report = None
         else:                                                                # Otherwise default data will be shown
-            report = Report.objects.filter(date__year=datetime.now().year, 
-     
+            report = Report.objects.filter(date__year=datetime.now().year,      
                                    date__month=datetime.now().month) # Only current months report
                                    
     # If catagory is selected                               
@@ -226,6 +230,7 @@ def report_monthly(request, catagory=None, value=None):
     issued_item = 0
     previous_balance = 0
     ending_balance = 0
+    total_purchase_cost = 0
     total_change = []                                                       # Trackng the change for individual changes
     value1 = request.POST.get('month')                                      # Getting the value from requester, method is POST
     report_item_in_this_month=set() 
@@ -248,7 +253,8 @@ def report_monthly(request, catagory=None, value=None):
                     if str(item_detail.name) == str(report.item_name):              # If there is any report on that month then continue 
                         previous_balance = Report.objects.filter(date__year=year, date__month=month, item_name=item_detail.id).first().previous_balance
                         purchase_item = purchase_item + report.purchase
-                        issued_item = issued_item + report.issued
+                        issued_item = issued_item + report.issued                        
+                        total_purchase_cost = total_purchase_cost + report.cost_per_unit
                         
                 ending_balance = previous_balance + purchase_item - issued_item     # Ending balance calculation
                         
@@ -259,12 +265,14 @@ def report_monthly(request, catagory=None, value=None):
                     try:                                                            # If there is any transition then continue        
                         previous_balance = report_not_in_this_month.ending_balance
                         ending_balance = report_not_in_this_month.ending_balance
+                        total_purchase_cost = 0
                     except:                                                         # Otherwise show except state
                         previous_balance = 0
                         ending_balance = 0
+                        total_purchase_cost = 0
                         
                 # All changes stored in total_change list to supply in template
-                total_change.append([item_detail.item_no, item_detail.name, previous_balance, purchase_item, issued_item, ending_balance]) 
+                total_change.append([item_detail.item_no, item_detail.name, previous_balance, purchase_item, issued_item, ending_balance, total_purchase_cost]) 
                 """
                 # Testing purpose
                 print(item_detail.name, "=", total_change)
@@ -276,6 +284,7 @@ def report_monthly(request, catagory=None, value=None):
                 issued_item = 0
                 previous_balance = 0
                 ending_balance = 0
+                total_purchase_cost = 0
         else:
             pass
             
@@ -297,7 +306,8 @@ def report_monthly(request, catagory=None, value=None):
                     if str(item_detail.name) == str(report.item_name):              # If there is any report on that month then continue 
                         previous_balance = Report.objects.filter(date__year=year, date__month=month, item_name=item_detail.id).first().previous_balance
                         purchase_item = purchase_item + report.purchase
-                        issued_item = issued_item + report.issued
+                        issued_item = issued_item + report.issued                      
+                        total_purchase_cost = total_purchase_cost + report.cost_per_unit
                         
                 ending_balance = previous_balance + purchase_item - issued_item     # Ending balance calculation
                         
@@ -308,12 +318,14 @@ def report_monthly(request, catagory=None, value=None):
                     try:                                                            # If there is any transition then continue        
                         previous_balance = report_not_in_this_month.ending_balance
                         ending_balance = report_not_in_this_month.ending_balance
+                        total_purchase_cost = 0
                     except:                                                         # Otherwise show except state
                         previous_balance = 0
                         ending_balance = 0
+                        total_purchase_cost = 0
                         
                 # All changes stored in total_change list to supply in template
-                total_change.append([item_detail.item_no, item_detail.name, previous_balance, purchase_item, issued_item, ending_balance]) 
+                total_change.append([item_detail.item_no, item_detail.name, previous_balance, purchase_item, issued_item, ending_balance, total_purchase_cost]) 
                 """
                 # Testing purpose
                 print(item_detail.name, "=", total_change)
@@ -325,6 +337,7 @@ def report_monthly(request, catagory=None, value=None):
                 issued_item = 0
                 previous_balance = 0
                 ending_balance = 0
+                total_purchase_cost = 0
         else:
             pass
         
