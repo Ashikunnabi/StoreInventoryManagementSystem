@@ -70,3 +70,5 @@
 	Catagory will be auto selected to generate individual report for catagory
 020:
 	Total cost of per item purchase in a month is added
+021:
+	JavaScript validation noscript added

@@ -10,6 +10,13 @@
   <link rel="stylesheet" href="{% static 'StaffWorkspace/css/base.css' %}">
   <script src="{% static 'StaffWorkspace/js/bootstrap.min.js' %}"></script>
   {% block extraCSS %}{% endblock %}
+  <noscript>
+        <style type="text/css">
+            .container {color:#c1c1c1;}
+            .alert {display:block;}
+            .submitButton {display:none;}
+        </style>    
+  </noscript>
 </head>
 <body>
     <div class="header">
@@ -17,7 +24,9 @@
             <image src="{% static 'StaffWorkspace/img/logo.png' %}" alt="Mas Trade International LTD. Logo">
         </a>       
     </div>
-    
+    <div class="alert">
+        <strong>Danger!</strong> Do not submit any data. Reset your browser or allow JavaScript.
+    </div>
     {% block content %}
     {% endblock %}
     
@@ -30,6 +39,6 @@
         <p>
             <span>&nbsp;&nbsp; Developed By: Quard Core, IUBAT University &nbsp;&nbsp;</span>
         </p>  
-    </div>
+    </div> 
 </body>
 </html>

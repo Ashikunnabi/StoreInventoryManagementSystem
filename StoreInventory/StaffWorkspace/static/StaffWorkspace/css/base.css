@@ -25,3 +25,16 @@
     background-color: white; 
     color: black;
 }
+
+.alert {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    margin-top: 10px;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    background: #f44336;
+    color: white;
+    text-align: center;
+    display: none;
+}

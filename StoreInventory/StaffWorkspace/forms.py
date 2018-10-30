@@ -14,7 +14,7 @@ class WorkerInputForm(forms.Form):
             attrs={'class': 'form-control col-md-8', 'readonly': 'readonly'}
         )
     )
-    purchase = forms.FloatField(
+    purchase = forms.IntegerField(
         required=False,initial=0, min_value=0,
         widget=forms.NumberInput(
             attrs={'class': 'form-control col-md-8', 'onchange': 'purchaseItem()', 'onkeyup': 'purchaseItem()'}
@@ -26,7 +26,7 @@ class WorkerInputForm(forms.Form):
             attrs={'class': 'form-control col-md-8', 'onchange': 'issuedItem()', 'onkeyup': 'issuedItem()'}
         )
     ) 
-    ending_balance = forms.FloatField(
+    ending_balance = forms.IntegerField(
         initial=0, min_value=0,
         widget=forms.NumberInput(
             attrs={'class': 'form-control col-md-8', 'readonly':'readonly'}

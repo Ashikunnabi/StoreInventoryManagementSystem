@@ -44,7 +44,7 @@ def home(request):
 
 def input_form(request, catagory):
     """        Worker can input store related information.    """ 
-    _catagory = catagory
+    _catagory = catagory                                    # Passing catagory to template
     # As Catagory-id is foreign key it will just store it's pk to Item table that's 
     # why we need to search both Catagory and Item table to get proper dynamic filtering.
     catagory = Catagory.objects.get(name=catagory)          # Collecting the name of catagory
