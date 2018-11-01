@@ -36,10 +36,14 @@ def logout_user(request):
     
 def home(request):
     """        General view for all user.    """
+    catagory = Catagory.objects.all()
+    context = {
+        "catagories": catagory
+    }
     if not request.user.is_authenticated:
         return redirect('login_user')
     else:
-        return render(request, 'StaffWorkspace/home.html')
+        return render(request, 'StaffWorkspace/home.html', context)
 
 
 def input_form(request, catagory):

@@ -72,3 +72,6 @@
 	Total cost of per item purchase in a month is added
 021:
 	JavaScript validation noscript added
+022: 
+	Home page design bug fix
+	Dynamic catagory 

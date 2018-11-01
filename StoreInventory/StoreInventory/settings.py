@@ -121,3 +121,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+path = os.path.dirname(BASE_DIR)+"/StoreInventory/StaffWorkspace"
+MEDIA_ROOT=os.path.join( path, "media")

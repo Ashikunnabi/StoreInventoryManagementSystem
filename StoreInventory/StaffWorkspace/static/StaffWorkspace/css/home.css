@@ -21,6 +21,9 @@
 .contents a{
     color: black;
 }
+.contents a:hover{
+    text-decoration: none;    
+}
 .option{
     height: 200px;
     width: 170px;

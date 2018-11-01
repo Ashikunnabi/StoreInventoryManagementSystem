@@ -21,30 +21,16 @@
             </a>
         </div>
         <div class="contents">
-            <a href="{% url 'input_form' 'Machine' %}">
-                <div class="option" style="border: 5px solid #03818E;">
-                    <div class="optionImage" style="background-color: #03818E;">
-                        <img src="{% static 'StaffWorkspace/img/machine.png' %}" alt="Machine">
+            {% for catagory in catagories %}
+                <a href="{% url 'input_form' catagory.name %}">
+                    <div class="option" style="border: 5px solid {{ catagory.color }};">
+                        <div class="optionImage" style="background-color: {{ catagory.color }};">
+                            <img src="/media/{{ catagory.image }}" alt="{{ catagory.name }}">
+                        </div>
+                        <p class="optionText">{{ catagory.name|upper }}</p>
                     </div>
-                    <p class="optionText">MACHINE</p>
-                </div>
-            </a>
-            <a href="{% url 'input_form' 'Stationary' %}">
-                <div class="option" style="border: 5px solid #1E1E1E;">
-                    <div class="optionImage" style="background-color: #1E1E1E;">
-                        <img src="{% static 'StaffWorkspace/img/stationary.png' %}" alt="Stationary">
-                    </div>
-                    <p class="optionText">STATIONARY</p>
-                </div>
-            </a>
-            <a href="{% url 'input_form' 'Others' %}">
-                <div class="option" style="border: 5px solid #033775;">
-                    <div class="optionImage" style="background-color: #033775;">
-                        <img src="{% static 'StaffWorkspace/img/others.png' %}" alt="Others">
-                    </div>
-                    <p class="optionText">OTHERS</p>
-                </div>
-            </a>
+                </a>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
