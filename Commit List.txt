@@ -75,3 +75,6 @@
 022: 
 	Home page design bug fix
 	Dynamic catagory 
+023: 
+	Auto search suggestion added of report
+	Input form sorted

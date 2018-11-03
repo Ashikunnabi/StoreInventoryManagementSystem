@@ -5,7 +5,7 @@ from AdminWorkspace.models import Item, Catagory, StockLocation, Vendor
 
 class Report(models.Model):
     date = models.DateField(auto_now_add=True)
-    item_no = models.IntegerField()
+    item_no = models.CharField(max_length=50)
     item_name = models.ForeignKey(Item, on_delete=models.CASCADE)
     catagory = models.ForeignKey(Catagory, on_delete=models.CASCADE)
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)

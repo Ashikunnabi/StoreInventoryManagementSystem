@@ -30,20 +30,24 @@
                     </form>
                 </th> 
                 <th>                
-                    <form action="{% url 'report_daily_search' catagory 'itemNo' %}" method="POST">
+                    <form autocomplete="off" action="{% url 'report_daily_search' catagory 'itemNo' %}" method="POST">
                     {% csrf_token %}           
-                        <input type="text" placeholder="Item No." size="6" name="itemNo">
+                        <input type="text" placeholder="Item No." size="6" name="itemNo" id="itemNo" onkeyup="itemNoAutoSuggest()">
+                        <div id="suggestionItemNo" class="autoSuggestion"></div>
                         <input type="submit"style=" display: none">
                     </form>
                 </th>
-                <form action="{% url 'report_daily_search' catagory 'itemName' %}" method="POST">
+                <form autocomplete="off" action="{% url 'report_daily_search' catagory 'itemName' %}" method="POST">
                 {% csrf_token %}
-                    <th><input type="text" placeholder="Item Name" size="10" name="itemName"></th>
+                    <th>
+                        <input type="text" placeholder="Item Name" size="10" name="itemName" id="itemName" onkeyup="itemNameAutoSuggest()">
+                        <div id="suggestionItemName" class="autoSuggestion"></div>
+                    </th>
                     <input type="submit"style=" display: none">
                 </form>
                 <form action="{% url 'report_daily_search' catagory 'vendor' %}" method="POST">
                 {% csrf_token %}
-                    <th><input type="text" placeholder="Vendor" size="10" name="vendor"></th>
+                    <th><input type="text" placeholder="Vendor" size="10" name="vendor" id="vendor"></th>
                     <input type="submit"style=" display: none">
                 </form>
                 <th>Stock Location</th>
@@ -137,6 +141,69 @@
                 {% endfor %}
             </table>
         </div>
-    </div>    
+    </div>  
+
+<!-- Search auto suggestion     -->
+<script>
+<!-- Search by item name -->
+    function itemNameAutoSuggest(){
+        var itemName = [];
+        var a = document.getElementById("suggestionItemName");
+        a.innerHTML = "";        
+        var searchedItemName = document.getElementById("itemName").value;
+        
+        if(document.getElementById("itemName").value==""){
+            a.innerHTML = "";
+        }
+        else
+        {        
+            {% for item in report_search_suggest %}
+                itemName.push("{{ item.name }}");
+            {% endfor %}            
+            item = new Set(itemName);
+            itemName = Array.from(item);
+            for(i=0; i<=itemName.length; i++){
+                if(itemName[i].substr(0, searchedItemName.length).toUpperCase() == searchedItemName.toUpperCase()){
+                    a.innerHTML += "<li onclick=searchedItemName('"+ itemName[i] +"')>" + itemName[i] + "</li>";
+                    a.innerHTML += "<input type='hidden' value='" + itemName[i] + "'>";
+                }
+            }
+            console.log(itemName);
+        }
+    }
+    function searchedItemName(itemName){        
+        document.getElementById("itemName").value = itemName;
+        document.getElementById("suggestionItemName").innerHTML = "";
+    }
+    
+<!-- Search by item no -->
+    function itemNoAutoSuggest(){
+        var itemNo = [];
+        var a = document.getElementById("suggestionItemNo");
+        a.innerHTML = "";        
+        var searchedItemNo = document.getElementById("itemNo").value;
+        
+        if(document.getElementById("itemNo").value==""){
+            a.innerHTML = "";
+        }
+        else
+        {        
+            {% for item in report_search_suggest %}
+                itemNo.push("{{ item.item_no }}");
+            {% endfor %}          
+            item = new Set(itemNo);
+            itemNo = Array.from(item);
+            for(i=0; i<=itemNo.length; i++){
+                if(itemNo[i].substr(0, searchedItemNo.length).toUpperCase() == searchedItemNo.toUpperCase()){
+                    a.innerHTML += "<li onclick=searchedItemNo('"+ itemNo[i] +"')>" + itemNo[i] + "</li>";
+                }
+            }
+        }
+    }
+    function searchedItemNo(itemNo){        
+        document.getElementById("itemNo").value = itemNo;
+        document.getElementById("suggestionItemNo").innerHTML = "";
+    }
+</script>
 
 {% endblock %}

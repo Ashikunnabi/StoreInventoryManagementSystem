@@ -60,6 +60,30 @@ input::placeholder{
 .month_search{
     margin-left: 50px;
 }
+
+.autoSuggestion{    
+    font-weight: normal;
+    min-width: 150px;
+    color: black;
+    background-color: white;
+    position: absolute;
+    list-style: none;
+    z-index: 99;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); 
+    margin-top: 2px;
+    margin-left: 20px;
+}
+.autoSuggestion li{ 
+    cursor: pointer;
+    padding: 5px;
+    border-bottom: 1px solid #b1b1b1;
+}
+.autoSuggestion li:hover{
+    background-color: #2303ef;
+    color: white;
+    font-weight: bold;
+}
+
 .printButton{
 	text-align: center;
 }

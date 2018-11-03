@@ -7,6 +7,7 @@ from .models import Report
 
 from AdminWorkspace.models import Catagory, Item, StockLocation, Vendor
 
+
 def login_user(request):
     """     Login      """
     if request.method == "POST":                        # If method=POST then request is valid otherwise not
@@ -52,9 +53,9 @@ def input_form(request, catagory):
     # As Catagory-id is foreign key it will just store it's pk to Item table that's 
     # why we need to search both Catagory and Item table to get proper dynamic filtering.
     catagory = Catagory.objects.get(name=catagory)          # Collecting the name of catagory
-    items = Item.objects.filter(catagory=catagory.id)       # Filtering item name from items using catagory.id
+    items = Item.objects.filter(catagory=catagory.id).order_by('name')       # Filtering item name from items using catagory.id
     vendors = Vendor.objects.all()                          # Collecting all vendors
-    stock_locations = StockLocation.objects.all()           # Collecting all stock locations
+    stock_locations = StockLocation.objects.all().order_by('name')           # Collecting all stock locations
 
     # Sending all needed values to webpage via context
     context = {
@@ -178,7 +179,7 @@ def report_daily(request, catagory=None, value=None):
         else:                                                                # Otherwise default data will be shown
             report = Report.objects.filter(date__year=datetime.now().year,      
                                    date__month=datetime.now().month) # Only current months report
-                                   
+        report_search_suggest = Item.objects.all()                       
     # If catagory is selected                               
     else:
         catagory = Catagory.objects.get(name=catagory)
@@ -213,11 +214,13 @@ def report_daily(request, catagory=None, value=None):
         else:                                                                # Otherwise default data will be shown
             report = Report.objects.filter(date__year=datetime.now().year, 
                                         date__month=datetime.now().month, catagory = catagory.id) # Only current months report
+        report_search_suggest = Item.objects.filter(catagory = catagory.id) 
     
     # Sending all needed values to webpage via context
     context = {
         "date": datetime.now(),
         "report": report,
+        "report_search_suggest": report_search_suggest,
         "catagory": catagory,
     }
     
@@ -258,7 +261,7 @@ def report_monthly(request, catagory=None, value=None):
                         previous_balance = Report.objects.filter(date__year=year, date__month=month, item_name=item_detail.id).first().previous_balance
                         purchase_item = purchase_item + report.purchase
                         issued_item = issued_item + report.issued                        
-                        total_purchase_cost = total_purchase_cost + report.cost_per_unit
+                        total_purchase_cost = total_purchase_cost + (report.cost_per_unit * report.purchase)
                         
                 ending_balance = previous_balance + purchase_item - issued_item     # Ending balance calculation
                         
@@ -289,8 +292,9 @@ def report_monthly(request, catagory=None, value=None):
                 previous_balance = 0
                 ending_balance = 0
                 total_purchase_cost = 0
-        else:
-            pass
+            report_search_suggest = Item.objects.all() 
+        else:            
+            report_search_suggest = None 
             
     else:
         catagory = Catagory.objects.get(name=catagory)
@@ -310,8 +314,8 @@ def report_monthly(request, catagory=None, value=None):
                     if str(item_detail.name) == str(report.item_name):              # If there is any report on that month then continue 
                         previous_balance = Report.objects.filter(date__year=year, date__month=month, item_name=item_detail.id).first().previous_balance
                         purchase_item = purchase_item + report.purchase
-                        issued_item = issued_item + report.issued                      
-                        total_purchase_cost = total_purchase_cost + report.cost_per_unit
+                        issued_item = issued_item + report.issued       
+                        total_purchase_cost = total_purchase_cost + (report.cost_per_unit * report.purchase)
                         
                 ending_balance = previous_balance + purchase_item - issued_item     # Ending balance calculation
                         
@@ -342,12 +346,14 @@ def report_monthly(request, catagory=None, value=None):
                 previous_balance = 0
                 ending_balance = 0
                 total_purchase_cost = 0
+            report_search_suggest = Item.objects.filter(catagory = catagory.id)
         else:
-            pass
+            report_search_suggest = None 
         
     context = {
-        "date": 'Monthly Report',
+        "date": value1,
         "total_changes": total_change,
+        "report_search_suggest": report_search_suggest,
         "catagory": catagory,
     }
     
@@ -357,7 +363,6 @@ def report_monthly(request, catagory=None, value=None):
         return render(request, 'StaffWorkspace/reportMonthly.html', context)
  
  
-    
 def buy_new_item(request):
     """     If any item needs to buy it will generate that item list    """
     items = Item.objects.all()

@@ -13,7 +13,7 @@ class Catagory(models.Model):
     
 class Item(models.Model):
     name = models.CharField(max_length=20)
-    item_no = models.IntegerField()
+    item_no = models.CharField(max_length=50)
     balance = models.IntegerField()
     cost_per_unit = models.FloatField()
     safety_stock_limit = models.IntegerField()
