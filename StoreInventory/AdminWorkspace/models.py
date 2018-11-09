@@ -3,17 +3,20 @@ from django.contrib import admin
 
 
 class Catagory(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, unique=True)
     color = models.CharField(max_length=7)
     image = models.FileField(default=None, null=True)
+    
+    class Meta:
+        verbose_name_plural = "categories"
     
     def __str__(self):
         return self.name
     
     
 class Item(models.Model):
-    name = models.CharField(max_length=20)
-    item_no = models.CharField(max_length=50)
+    name = models.CharField(max_length=20, unique=True)
+    item_no = models.CharField(max_length=50, unique=True)
     balance = models.IntegerField()
     cost_per_unit = models.FloatField()
     safety_stock_limit = models.IntegerField()
@@ -32,14 +35,14 @@ class ItemAdmin(admin.ModelAdmin):
     
     
 class Vendor(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     address = models.TextField()
 
     def __str__(self):
         return self.name    
     
 class StockLocation(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, unique=True)
     address = models.CharField(max_length=50)
 
     def __str__(self):

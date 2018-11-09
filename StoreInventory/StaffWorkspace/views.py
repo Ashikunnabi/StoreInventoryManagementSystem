@@ -80,7 +80,7 @@ def input_form_submit(request, catagory):
         vendor = request.POST.get("vendor_name")     
         stock_location = request.POST.get("stock_location")     
         cost_per_unit = request.POST.get("cost_per_unit")     
-        previous_balance = int(request.POST.get("previous_balance"))    
+        previous_balance = request.POST.get("previous_balance")    
         purchase = request.POST.get("purchase")     
         issued = request.POST.get("issued")     
         ending_balance = request.POST.get("ending_balance")     
@@ -98,30 +98,39 @@ def input_form_submit(request, catagory):
             }
             return render(request, 'StaffWorkspace/inputForm.html', context)
         else:        
-            # Collecting the information of a full row/object from diffrent model/table.
+            # Collecting the information of a row/object from diffrent model/table.
             item_detail = Item.objects.get(name=item_name)
             catagory_detail = Catagory.objects.get(name=item_detail.catagory)
             vendor_detail = Vendor.objects.get(name=vendor)
             stock_detail = StockLocation.objects.get(name=stock_location)
             
-            # Making a query to Report table to save data.
-            report_save = Report( item_name = Item.objects.get(pk=item_detail.id), 
-                        item_no = item_detail.item_no,
-                        catagory = Catagory.objects.get(pk=catagory_detail.id),
-                        vendor=Vendor.objects.get(pk=vendor_detail.id), 
-                        stock_location=StockLocation.objects.get(pk=stock_detail.id),
-                        cost_per_unit = cost_per_unit,
-                        previous_balance=previous_balance,
-                        purchase =  purchase,
-                        issued =issued,
-                        ending_balance = ending_balance,
-                        issued_to = issued_to,
-                        comments = comments,
-                        added_by = added_by)
-            report_save.save()
-            
-            # Previous balance update depending on ending_balance. Table name = Item
-            Item.objects.filter(name=item_name).update(balance=ending_balance, cost_per_unit=cost_per_unit)
+            try:    # If valid data inputed
+                    # Making a query to Report table to save data.
+                report_save = Report( item_name = Item.objects.get(pk=item_detail.id), 
+                            item_no = item_detail.item_no,
+                            catagory = Catagory.objects.get(pk=catagory_detail.id),
+                            vendor=Vendor.objects.get(pk=vendor_detail.id), 
+                            stock_location=StockLocation.objects.get(pk=stock_detail.id),
+                            cost_per_unit = cost_per_unit,
+                            previous_balance=int(previous_balance),
+                            purchase =  purchase,
+                            issued =issued,
+                            ending_balance = ending_balance,
+                            issued_to = issued_to,
+                            comments = comments,
+                            added_by = added_by)
+                report_save.save()                
+                # Previous balance update depending on ending_balance. Table name = Item
+                Item.objects.filter(name=item_name).update(balance=ending_balance, cost_per_unit=cost_per_unit)
+                
+            except:     # Invalid data inputed
+                error = "Something went wrong. Please reset your browser or enable javascript."
+                context = {
+                    "error": error,
+                    "catagory": catagory,
+                    "noJavaScript": "disabled",
+                }
+                return render(request, 'StaffWorkspace/inputForm.html', context)
     
     if not request.user.is_authenticated:
         return render(request, 'StaffWorkspace/loginPage.html')
@@ -159,14 +168,14 @@ def report_daily(request, catagory=None, value=None):
         elif value3 is not None:
             try:
                 item_no = request.POST.get('itemNo')
-                report = Report.objects.filter(item_no=item_no)
+                report = Report.objects.filter(item_no=item_no).order_by('-date')[:500]
             except:
                 report = None
         elif value4 is not None:
             try:
                 item_name = request.POST.get('itemName') 
                 item_name = Item.objects.get(name =item_name) 
-                report = Report.objects.filter(item_name=item_name.id)
+                report = Report.objects.filter(item_name=item_name.id).order_by('-date')[:500]
             except:
                 report = None
         elif value5 is not None:
@@ -179,9 +188,9 @@ def report_daily(request, catagory=None, value=None):
         else:                                                                # Otherwise default data will be shown
             report = Report.objects.filter(date__year=datetime.now().year,      
                                    date__month=datetime.now().month) # Only current months report
-        report_search_suggest = Item.objects.all()                       
-    # If catagory is selected                               
-    else:
+        report_search_suggest = Item.objects.all()                   # Auto suggest field for search option                
+                                 
+    else:           # If catagory is selected  
         catagory = Catagory.objects.get(name=catagory)
         # If user request for specific type of data to see report
         if value1 is not None:
@@ -194,14 +203,14 @@ def report_daily(request, catagory=None, value=None):
         elif value3 is not None:
             try:
                 item_no = request.POST.get('itemNo')
-                report = Report.objects.filter(item_no=item_no, catagory = catagory.id)
+                report = Report.objects.filter(item_no=item_no, catagory = catagory.id).order_by('-date')[:50]
             except:
                 report = None
         elif value4 is not None:
             try:
                 item_name = request.POST.get('itemName') 
                 item_name = Item.objects.get(name =item_name) 
-                report = Report.objects.filter(item_name=item_name.id, catagory = catagory.id)
+                report = Report.objects.filter(item_name=item_name.id, catagory = catagory.id).order_by('-date')[:50]
             except:
                 report = None
         elif value5 is not None:
@@ -214,7 +223,7 @@ def report_daily(request, catagory=None, value=None):
         else:                                                                # Otherwise default data will be shown
             report = Report.objects.filter(date__year=datetime.now().year, 
                                         date__month=datetime.now().month, catagory = catagory.id) # Only current months report
-        report_search_suggest = Item.objects.filter(catagory = catagory.id) 
+        report_search_suggest = Item.objects.filter(catagory = catagory.id)     # Auto suggest field for search option
     
     # Sending all needed values to webpage via context
     context = {
@@ -246,8 +255,8 @@ def report_monthly(request, catagory=None, value=None):
     if catagory == 'None':
         if value1 is not None:
             month = request.POST.get('month')
-            month, year = month.split("/")                                      # Dividing 10/2018 into month=10, year=2018
-            item_all = Item.objects.all()                                       # All items
+            month, year = month.split("/")                                       # Dividing 10/2018 into month=10, year=2018
+            item_all = Item.objects.all()                                        # All items
             reports = Report.objects.filter(date__year=year, date__month=month)  # Requesting for given month
             
             # Making a set of reported item list of searched month
@@ -292,7 +301,7 @@ def report_monthly(request, catagory=None, value=None):
                 previous_balance = 0
                 ending_balance = 0
                 total_purchase_cost = 0
-            report_search_suggest = Item.objects.all() 
+            report_search_suggest = Item.objects.all()          # Auto suggest field for search option
         else:            
             report_search_suggest = None 
             
@@ -346,7 +355,7 @@ def report_monthly(request, catagory=None, value=None):
                 previous_balance = 0
                 ending_balance = 0
                 total_purchase_cost = 0
-            report_search_suggest = Item.objects.filter(catagory = catagory.id)
+            report_search_suggest = Item.objects.filter(catagory = catagory.id)                 # Auto suggest field for search option
         else:
             report_search_suggest = None 
         

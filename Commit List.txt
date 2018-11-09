@@ -78,3 +78,6 @@
 023: 
 	Auto search suggestion added of report
 	Input form sorted
+24:
+	Auto search suggestion updated
+	Duplicate value checking for catagory, item, vendor, stockloaction
