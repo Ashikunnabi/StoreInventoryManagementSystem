@@ -135,7 +135,7 @@ def input_form_submit(request, catagory):
     if not request.user.is_authenticated:
         return render(request, 'StaffWorkspace/loginPage.html')
     else:
-        return redirect('report', catagory=catagory_detail.name)
+        return redirect('input_form', catagory=catagory_detail.name)
 
 
 def report(request, catagory=None):
