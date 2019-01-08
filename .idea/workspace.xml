@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5fee3c2a-0cc0-4ab1-83c7-1a9b58857c98" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreInventory/StaffWorkspace/static/StaffWorkspace/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/StoreInventory/StaffWorkspace/static/StaffWorkspace/css/home.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreInventory/StaffWorkspace/templates/StaffWorkspace/reportDaily.html" beforeDir="false" afterPath="$PROJECT_DIR$/StoreInventory/StaffWorkspace/templates/StaffWorkspace/reportDaily.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreInventory/StaffWorkspace/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/StoreInventory/StaffWorkspace/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StoreInventory/StoreInventory/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/StoreInventory/StoreInventory/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/StoreInventory/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/StoreInventory/db.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -12,34 +17,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="inputForm.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/templates/StaffWorkspace/inputForm.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="22" column="52" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/StoreInventory/StoreInventory/__init__.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2142">
-              <caret line="128" column="37" selection-start-line="128" selection-start-column="37" selection-end-line="128" selection-end-column="37" />
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -58,15 +36,16 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="610" />
-    <option name="width" value="732" />
-    <option name="height" value="740" />
+    <option name="x" value="991" />
+    <option name="width" value="938" />
+    <option name="height" value="1057" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -104,11 +83,10 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Python Learning" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -137,9 +115,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="610" y="0" width="732" height="740" extended-state="0" />
+    <frame x="991" y="0" width="938" height="1057" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19692737" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15292841" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" />
@@ -164,35 +142,48 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/templates/StaffWorkspace/inputForm.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="52" selection-start-line="19" selection-start-column="52" selection-end-line="19" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/templates/StaffWorkspace/workerReportPrint.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+        <state relative-caret-position="374">
+          <caret line="22" column="52" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/views.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2176">
+          <caret line="128" column="35" selection-start-line="128" selection-start-column="35" selection-end-line="128" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/templates/StaffWorkspace/inputForm.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="52" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2176">
+          <caret line="128" column="35" lean-forward="true" selection-start-line="128" selection-start-column="35" selection-end-line="128" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/templates/StaffWorkspace/inputForm.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="52" selection-start-line="19" selection-start-column="52" selection-end-line="19" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/templates/StaffWorkspace/workerReportPrint.html" />
+    <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/views.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="21" column="37" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/templates/StaffWorkspace/workerReport.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="30" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/templates/StaffWorkspace/workerReport.html" />
     <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/templates/StaffWorkspace/home.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -214,13 +205,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/templates/StaffWorkspace/workerReportPrint.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/templates/StaffWorkspace/workerReportPrint.html" />
     <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -228,26 +213,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/templates/StaffWorkspace/workerReport.html" />
     <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2142">
-          <caret line="128" column="37" selection-start-line="128" selection-start-column="37" selection-end-line="128" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="17">
+          <caret line="128" column="35" selection-start-line="128" selection-start-column="35" selection-end-line="128" selection-end-column="35" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/templates/StaffWorkspace/workerReport.html" />
     <entry file="file://$PROJECT_DIR$/StoreInventory/StaffWorkspace/templates/StaffWorkspace/inputForm.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
+        <state relative-caret-position="17">
           <caret line="22" column="52" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/StoreInventory/StoreInventory/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>

@@ -122,6 +122,6 @@ USE_TZ = True
 
 path = os.path.dirname(BASE_DIR)+"/StoreInventory/StaffWorkspace"
 STATIC_URL = '/static/'
-MEDIA_ROOT=os.path.join( path, "static")
+STATIC_ROOT=os.path.join( path, "static")
 MEDIA_URL = '/media/'
 MEDIA_ROOT=os.path.join( path, "media")

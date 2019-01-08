@@ -15,7 +15,7 @@ class Catagory(models.Model):
     
     
 class Item(models.Model):
-    name = models.CharField(max_length=20, unique=True)
+    name = models.CharField(max_length=100, unique=True)
     item_no = models.CharField(max_length=50, unique=True)
     balance = models.IntegerField()
     cost_per_unit = models.FloatField()
@@ -31,7 +31,7 @@ class ItemAdmin(admin.ModelAdmin):
         """ This class is made for custom admin design in Item tab. """
         list_display = ('item_no', 'name', 'catagory')
         list_filter = ('catagory',)
-        search_fields = ( 'name',)
+        search_fields = ( 'item_no',)
     
     
 class Vendor(models.Model):

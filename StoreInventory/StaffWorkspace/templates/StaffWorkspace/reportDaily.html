@@ -165,7 +165,6 @@
             for(i=0; i<=itemName.length; i++){
                 if(itemName[i].substr(0, searchedItemName.length).toUpperCase() == searchedItemName.toUpperCase()){
                     a.innerHTML += "<li onclick=searchedItemName('"+ itemName[i] +"')>" + itemName[i] + "</li>";
-                    a.innerHTML += "<input type='hidden' value='" + itemName[i] + "'>";
                 }
             }
             console.log(itemName);
