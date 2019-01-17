@@ -333,10 +333,15 @@ def report_monthly(request, catagory=None, value=None):
 
                 ending_balance = previous_balance + purchase_item - issued_item     # Ending balance calculation
 
-                if str(item_detail.name) not in report_item_in_this_month:          # Otherwise put last transition from last month
-                    days_in_month = calendar.monthrange(int(year), int(month)-1)[1] # Getting how many days in one month
-                    report_not_in_this_month = Report.objects.filter(date__range=[datetime(2000,1,1), datetime(int(year), int(month)-1, days_in_month)],
+                if str(item_detail.name) not in report_item_in_this_month:          # Otherwise put last transition from last month                                                          
+                    if int(month) == 1:
+                        days_in_month = calendar.monthrange(int(year)-1, 12)[1] # Getting how many days in one month
+                        report_not_in_this_month = Report.objects.filter(date__range=[datetime(2000,1,1), datetime(int(year)-1, 12, days_in_month)],
                                                                         item_name=item_detail.id).last()
+                    else:
+                        days_in_month = calendar.monthrange(int(year), int(month)-1)[1] # Getting how many days in one month
+                        report_not_in_this_month = Report.objects.filter(date__range=[datetime(2000,1,1), datetime(int(year), int(month)-1, days_in_month)],
+                                                                        item_name=item_detail.id).last()                                                    
                     try:                                                            # If there is any transition then continue
                         previous_balance = report_not_in_this_month.ending_balance
                         ending_balance = report_not_in_this_month.ending_balance
